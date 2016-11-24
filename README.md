@@ -4,7 +4,7 @@ Versão em português da DLang Tour
 [![Build Status](https://travis-ci.org/dlang-tour/portuguese.svg?branch=master)](https://travis-ci.org/dlang-tour/portuguese)
 
 Achou um error de digitação ou quer melhorar o conteúdo?
-Apenas clique em "edit" e envie para nós um pull request.
+Apenas clique em "edit" e envie um pull request para nós.
 Se você quer discutir uma ideia antes de alterar algo,
 não hesite em abrir uma [issue](https://github.com/dlang-tour/portuguese/issues).
 
