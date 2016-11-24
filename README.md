@@ -1,12 +1,12 @@
-English base language version of the DLang Tour
-==============================================
+Versão em português da DLang Tour
+=================================
 
-[![Build Status](https://travis-ci.org/dlang-tour/english.svg?branch=master)](https://travis-ci.org/dlang-tour/english)
+[![Build Status](https://travis-ci.org/dlang-tour/portuguese.svg?branch=master)](https://travis-ci.org/dlang-tour/portuguese)
 
-Found a typo or want to improve the content?
-Just click on "edit" and send us a pull request.
-If you want to discuss an idea for a change first,
-don't hesitate to open an [issue](https://github.com/dlang-tour/english/issues).
+Achou um error de digitação ou quer melhorar o conteúdo?
+Apenas clique em "edit" e envie para nós um pull request.
+Se você quer discutir uma ideia antes de alterar algo,
+não hesite em abrir uma [issue](https://github.com/dlang-tour/portuguese/issues).
 
-You might also be looking for the [base repository](https://github.com/dlang-tour)
-that hosts the content.
+Você também pode estar procurando pelo [repositório base](https://github.com/dlang-tour)
+que hospeda o conteúdo.

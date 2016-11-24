@@ -1,30 +1,31 @@
-# Welcome to D
+# Bem-vindo ao D
 
-Welcome to the interactive tour of the *D Programming language*.
+Bem-vindo ao tour interativo da *linguagem de programação D*.
 
 {{#dmanmobile}}
 
-This tour gives an overview of this __powerful__ and __expressive__
-language which compiles directly to __efficient__, __native__ machine code.
+Esta tour dá um visão geral desta __poderosa__ e __expressiva__
+linguagem que compila diretamente para __eficiente__ código __nativo__ de máquina.
 
 {{/dmanmobile}}
 
-### What is D?
+### O que é D?
 
-D is the culmination of _decades of experience implementing compilers_
-for many diverse languages and has a large number of
-[unique features](http://dlang.org/overview.html):
+D é o culminar de _décadas de experiência implementando compiladores_
+para diversas linguagens e tem um grande número de
+[funcionalidades únicas](http://dlang.org/overview.html):
 
 {{#dmandesktop}}
 
-- _high level_ constructs for great modeling power
-- _high performance_, compiled language
-- static typing
-- direct interface to the operating system API's and hardware
-- blazingly fast compile-times
-- allow memory-safe programming (SafeD)
+- Construção de _alto nível_ para uma modelagem poderosa
+- _alta performance_, linguagem compilada
+- tipagem estática
+- interface direta para APIs do sistema operacional e hardware
+- tempo de compilação incrivelmente rápido
+- permite programação com memory-safe (SafeD)
 - _maintainable_, _easy to understand_ code
-- short learning curve (C-like syntax, similar to Java and others)
+- _fácil de entender_ o código
+- baixa curva de aprendizado (sintaxe semelhante a C, Java e outras lingiagens)
 - compatible with C application binary interface
 - limited compatibility with C++ application binary interface
 - multi-paradigm (imperative, structured, object oriented, generic, functional programming purity, and even assembly)
