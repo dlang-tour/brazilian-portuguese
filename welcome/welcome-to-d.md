@@ -23,35 +23,34 @@ para diversas linguagens e tem um grande número de
 - interface direta para APIs do sistema operacional e hardware
 - tempo de compilação incrivelmente rápido
 - permite programação com memory-safe (SafeD)
-- _maintainable_, _easy to understand_ code
-- _fácil de entender_ o código
-- baixa curva de aprendizado (sintaxe semelhante a C, Java e outras lingiagens)
-- compatible with C application binary interface
-- limited compatibility with C++ application binary interface
-- multi-paradigm (imperative, structured, object oriented, generic, functional programming purity, and even assembly)
-- built-in error prevention (contracts, unittests)
+- _manutenível_, código _fácil de entender_
+- baixa curva de aprendizado (sintaxe semelhante a C, Java e outras linguagens)
+- compatível com interface binário em C
+- compatibilidade limitada com interface binária em C++
+- multi-paradigma (imperativo, estruturado, orientado a objetos, genérica, programação funcional pura, e mesmo assembly)
+- prevenção de erros embutido (contratos, testes uniários)
 
-... and many more [features](http://dlang.org/overview.html).
+... e muitas outras [funcionalidades](http://dlang.org/overview.html).
 
 {{/dmandesktop}}
 
-### About the tour
+### Sobre o tour
 
-Each section comes with a source code example that can be modified and used
-to experiment with D's language features.
-Click the run button (or `Ctrl-enter`) to compile and run it.
+Cada seção vem com um código-fonte de exemplo que pode ser modificado e usado
+para experimentar as funcionalides da linguagem D.
+Clique no botão run (ou `Ctrl-enter`) para compilar e executa-ló.
 
-### Contributing
+### Contribuindo
 
-This tour is [open source](https://github.com/dlang-tour)
-and we are glad about pull requests making this tour even better.
+Este tour tem o [código aberto](https://github.com/dlang-tour) e ficamos felizes
+com pull requests para torná-lo melhor.
 
 ## {SourceCode}
 
 ```d
 import std.stdio;
 
-// Let's get going!
+// Vamos começar!
 void main()
 {
     writeln("Hello World!");
