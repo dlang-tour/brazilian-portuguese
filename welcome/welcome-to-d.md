@@ -4,7 +4,7 @@ Bem-vindo ao tour interativo da *linguagem de programação D*.
 
 {{#dmanmobile}}
 
-Esta tour dá um visão geral desta __poderosa__ e __expressiva__
+Esta tour dá uma visão geral desta __poderosa__ e __expressiva__
 linguagem que compila diretamente para __eficiente__ código __nativo__ de máquina.
 
 {{/dmanmobile}}
@@ -26,7 +26,7 @@ para diversas linguagens e tem um grande número de
 - _manutenível_, código _fácil de entender_
 - baixa curva de aprendizado (sintaxe semelhante a C, Java e outras linguagens)
 - compatível com interface binário em C
-- compatibilidade limitada com interface binária em C++
+- compatibilidade limitada com interface binário em C++
 - multi-paradigma (imperativo, estruturado, orientado a objetos, genérica, programação funcional pura, e mesmo assembly)
 - prevenção de erros embutido (contratos, testes uniários)
 
