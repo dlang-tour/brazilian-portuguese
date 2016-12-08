@@ -1,26 +1,26 @@
-# Install D locally
+# Instalar D localmente
 
-On the D language's website [dlang.org](https://dlang.org) the most recent
-compiler version of the reference compiler **DMD** (Digital Mars D)
-can be [downloaded](http://dlang.org/download.html) and installed:
+No website da linguagem D [dlang.org](https://dlang.org) a versão mais recente
+do compilador **DMD** (Digital Mars D) pode ser [baixado](http://dlang.org/download.html)
+e instalado:
 
 ### Windows
 
-* [Installer](http://downloads.dlang.org/releases/2.x/{{latest-release}}/dmd-{{latest-release}}.exe)
-* or: [Archive](http://downloads.dlang.org/releases/2.x/{{latest-release}}/dmd.{{latest-release}}.windows.7z)
-* using [chocolatey](https://chocolatey.org/packages/dmd): `choco install dmd`
+* [Instalador](http://downloads.dlang.org/releases/2.x/{{latest-release}}/dmd-{{latest-release}}.exe)
+* ou: [Archive](http://downloads.dlang.org/releases/2.x/{{latest-release}}/dmd.{{latest-release}}.windows.7z)
+* usando [chocolatey](https://chocolatey.org/packages/dmd): `choco install dmd`
 
 ### macOS
 
-* `.dmg` [package](http://downloads.dlang.org/releases/2.x/{{latest-release}}/dmd.{{latest-release}}.dmg)
-* or: [Archive](http://downloads.dlang.org/releases/2.x/{{latest-release}}/dmd.{{latest-release}}.osx.tar.xz)
-* using [Homebrew](http://brew.sh): `brew install dmd`
+* `.dmg` [pacote](http://downloads.dlang.org/releases/2.x/{{latest-release}}/dmd.{{latest-release}}.dmg)
+* ou: [Archive](http://downloads.dlang.org/releases/2.x/{{latest-release}}/dmd.{{latest-release}}.osx.tar.xz)
+* usando [Homebrew](http://brew.sh): `brew install dmd`
 
 ### Linux / FreeBSD / macOS
 
-To quickly install dmd within your user directory, run: `curl -fsS https://dlang.org/install.sh | bash -s dmd`
+Para instalar o dmd em seu diretório de usuário, execute: `curl -fsS https://dlang.org/install.sh | bash -s dmd`
 
-Packages for various distributions are provided:
+São fornecidos pacotes para várias distribuições:
 
 * [ArchLinux](https://wiki.archlinux.org/index.php/D_(programming_language))
 * [Debian/Ubuntu](http://d-apt.sourceforge.net).
@@ -28,18 +28,17 @@ Packages for various distributions are provided:
 * [Gentoo](https://wiki.gentoo.org/wiki/Dlang)
 * [OpenSuse](http://dlang.org/download.html#dmd)
 
-### Other compilers
+### Outros compiladores
 
-Besides the DMD reference compiler which uses its own backend, there are
-two other compilers that can be fetched through the
-[dlang.org](https://dlang.org) download section:
+Além do compilador DMD que usa seu próprio backend, há outros dois compiladores
+que podem ser baixados atráves do [dlang.org](https://dlang.org)
 
-* [**GDC**](http://gdcproject.org/downloads) which uses the GCC backend
-* [**LDC**](https://github.com/ldc-developers/ldc#installation) based on the LLVM backend
+* [**GDC**](http://gdcproject.org/downloads) que usa o backend GCC
+* [**LDC**](https://github.com/ldc-developers/ldc#installation) beseado no backend LLVM
 
-GDC and LDC aren't always at the most recent DMD frontend's versions,
-but provide better optimization levels as well as support
-for other platforms like e.g. ARM.
+GDC e LDC nem sempre estão com a versão mais recente do frontend DMD,
+mas tem melhores níveis de otimização e suporte para outras plataformas,
+por exemplo ARM.
 
-See the wiki for [more information](https://wiki.dlang.org/Compilers)
+Veja [mais informações](https://wiki.dlang.org/Compilers) no wiki
 
