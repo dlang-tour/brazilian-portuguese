@@ -4,8 +4,10 @@ Bem-vindo ao tour interativo da *linguagem de programação D*.
 
 {{#dmanmobile}}
 
+
 Esta tour dá uma visão geral desta __poderosa__ e __expressiva__
-linguagem que compila diretamente para __eficiente__ código __nativo__ de máquina.
+linguagem que compila diretamente para um código __nativo__ de máquina e mais _eficiente__.
+
 
 {{/dmanmobile}}
 
