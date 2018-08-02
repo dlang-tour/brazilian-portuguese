@@ -1,15 +1,15 @@
-# Links & Documentation
+# Links & Documentação
 
-After you complete the tour, you can check out some of the following links for help or more information:
+Após você completar o tour, você pode visitar alguns dos seguintes links para obter ajuda ou mais informações:
 
-* [Learning D as a beginner](http://ddili.org/ders/d.en/index.html)
-* [Learning D for experienced programmers](http://wiki.dlang.org/Coming_From) coming from other languages
-* [D Tutorials](https://wiki.dlang.org/Tutorials)
-* [Overview of D's unique features](http://dlang.org/overview.html)
-* [Common questions about D](http://dlang.org/faq.html)
+* [D como um iniciante](http://ddili.org/ders/d.en/index.html)
+* [D para programadores experientes](http://wiki.dlang.org/Coming_From) coming from other languages
+* [D Tutoriáis](https://wiki.dlang.org/Tutorials)
+* [Visão geral dos recursos da linguagem D](http://dlang.org/overview.html)
+* [Perguntas frequentes sobre D](http://dlang.org/faq.html)
 
-### Help
+### Ajuda
 
-* Ask questions in the [#d](irc://irc.freenode.net/d) IRC channel on freenode ([web interface](https://kiwiirc.com/client/irc.freenode.net/d))
-* Get help at [D.learn](http://forum.dlang.org/group/learn)
-* Open an issue [at the D bugtracker](https://issues.dlang.org)
+* Faça perguntas no canal [#d](irc://irc.freenode.net/d) do IRC no freenode ([web interface](https://kiwiirc.com/client/irc.freenode.net/d))
+* Obtenha ajuda no [D.learn](http://forum.dlang.org/group/learn)
+* Abra uma issue [no D bugtracker](https://issues.dlang.org)

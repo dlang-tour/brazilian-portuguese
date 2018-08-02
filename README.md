@@ -1,5 +1,5 @@
-Versão em português da DLang Tour
-=================================
+Versão em português do Brasil da DLang Tour
+===========================================
 
 [![Build Status](https://travis-ci.org/dlang-tour/brazilian-portuguese.svg?branch=master)](https://travis-ci.org/dlang-tour/brazilian-portuguese)
 

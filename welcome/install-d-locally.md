@@ -1,8 +1,6 @@
 # Instalar D localmente
 
-No website da linguagem D [dlang.org](https://dlang.org) a versão mais recente
-do compilador **DMD** (Digital Mars D) pode ser [baixado](http://dlang.org/download.html)
-e instalado:
+No website da linguagem D [dlang.org](https://dlang.org) você pode [baixar](http://dlang.org/download.html) e instalar a versão mais recente do compilador **DMD** (Digital Mars D).
 
 ### Windows
 
