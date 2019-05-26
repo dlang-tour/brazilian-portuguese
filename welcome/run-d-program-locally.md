@@ -1,44 +1,44 @@
-# Run D program locally
+# Executando um programa em D localmente
 
-D comes with a compiler `dmd`, an script-like run tool `rdmd` and
-a package manager `dub`.
+O D é acompanhado por um compilador `dmd`, uma ferramenta de execução `rdmd` 
+escrita como script e um gerenciador de pacotes `dub`.
 
-### DMD Compiler
+### Compilador DMD
 
-The *DMD* compiler compiles D file(s) and creates a binary.
-On the command line *DMD* can be invoked with the filename:
+O compilador *DMD* compila arquivo(s) em D e cria um executável.
+Na linha de comando o *DMD* pode ser chamado com o nome do arquivo da seguinte forma:
 
     dmd hello.d
 
-There are many options that allow to modify the behavior of the *DMD* compiler.
-Browse the [online documentation](https://dlang.org/dmd.html#switches) or run `dmd --help` for an overview of available flags.
+Há várias opções que permitem modificar o comportamento do compilador *DMD*.
+Busque na [Documentação Online](https://dlang.org/dmd.html#switches) ou execute `dmd --help` para uma descrição das flags.
 
-### On-the-fly compilation with `rdmd`
+### Compilação "On-the-fly" com `rdmd`
 
-The helper tool `rdmd`, distributed with the DMD compiler,
-will make sure to compile all dependencies and automatically runs
-the resulting application:
+A ferramenta auxiliar `rdmd`, distribuida com o compilador DMD, 
+é encarregada de compilar todas as depencencias e automaticamente
+executar o programa final.
 
     rdmd hello.d
 
-On UNIX systems the shebang line `#!/usr/bin/env rdmd` can be put
-on the first line of an executable D file to allow a script-like
-usage.
+Em sistemas UNIX a linha `#!/usr/bin/env rdmd` pode ser colocada na
+primeira linha de um arquivo D executável para permitir seu uso como script.
+Busque na [Documentação Online](https://dlang.org/rdmd.html) ou execute `dmd --help` para uma descrição das flags.
 
-Browse the [online documentation](https://dlang.org/rdmd.html) or run `rdmd --help` for for an overview of available flags.
+### Gerenciador de Pacotes `dub`
 
-### Package manager `dub`
-
-D's standard package manager is [`dub`](http://code.dlang.org). When `dub` is
-installed locally, a new project `hello` can be created using
-the command line:
+O gerenciador de pacotes padrão do D é o [`dub`](http://code.dlang.org). Quando 
+o `dub` é instalado localmente um novo projeto `hello` pode ser criado usando 
+o comando:
 
     dub init hello
 
-Running `dub` inside this folder will fetch all dependencies, compile the
-application and run it.
-`dub build` will compile the project.
+Executando `dub` dentro de um pasta ele busca todas as dependencias, compila
+a aplicação e a executa.
 
-Browse the [online documentation](https://code.dlang.org/docs/commandline) or run `dub help` for an overview of available commands and features.
 
-All available dub packages can be browsed through dub's [web interface](https://code.dlang.org).
+`dub build` compilará o projeto.
+
+Busque na [Documentação Online](https://code.dlang.org/docs/commandline) ou execute `dmd --help` para uma descrição dos comandos e features disponíveis.
+
+Todos os pacotes disponível do dub podem ser encontrados na [interface web](https://code.dlang.org) do dub.
