@@ -1,7 +1,7 @@
 # Executando um programa em D localmente
 
 O D é acompanhado por um compilador `dmd`, uma ferramenta de execução `rdmd` 
-escrita como script e um gerenciador de pacotes `dub`.
+em formato de script e um gerenciador de pacotes `dub`.
 
 ### Compilador DMD
 
