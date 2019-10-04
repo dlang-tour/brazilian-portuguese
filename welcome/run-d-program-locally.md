@@ -41,4 +41,4 @@ a aplicação e a executa.
 
 Busque na [Documentação Online](https://code.dlang.org/docs/commandline) ou execute `dmd --help` para uma descrição dos comandos e features disponíveis.
 
-Todos os pacotes disponível do dub podem ser encontrados na [interface web](https://code.dlang.org) do dub.
+Todos os pacotes disponíveis do dub podem ser encontrados na [interface web](https://code.dlang.org) do dub.
