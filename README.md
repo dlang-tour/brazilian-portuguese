@@ -1,7 +1,7 @@
 Versão em português do Brasil da DLang Tour
 ===========================================
 
-[![Build Status](https://travis-ci.org/dlang-tour/brazilian-portuguese.svg?branch=master)](https://travis-ci.org/dlang-tour/brazilian-portuguese)
+[![sanitycheck build status](https://github.com/dlang-tour/brazilian-portuguese/actions/workflows/d.yml/badge.svg)](https://github.com/dlang-tour/brazilian-portuguese/actions/workflows/d.yml)
 
 Achou um error de digitação ou quer melhorar o conteúdo?
 Apenas clique em "edit" e envie um pull request para nós.
