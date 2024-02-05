@@ -1,77 +1,76 @@
-# Basic types
+# Tipos básicos
 
-D provides a number of basic types which always have the same
-size **regardless** of the platform - the only exception
-is the `real` type which provides the highest possible floating point
-precision. There is no difference
-between the size of an integer regardless whether the application
-is compiled for 32-bit or 64-bit systems.
+O D fornece vários tipos básicos que sempre têm o mesmo
+tamanho **independentemente** da plataforma - a única exceção
+é o tipo `real` que fornece a maior precisão possível de ponto flutuante
+possível. Não há diferença
+entre o tamanho de um número inteiro, independentemente de o aplicativo
+seja compilado para sistemas de 32 ou 64 bits.
 
-<table class="table table-hover">
-<tr><td width="250px"><code class="prettyprint">bool</code></td> <td>8-bit</td></tr>
-<tr><td><code class="prettyprint">byte, ubyte, char</code></td> <td>8-bit</td></tr>
-<tr><td><code class="prettyprint">short, ushort, wchar</code></td> <td>16-bit</td></tr>
-<tr><td><code class="prettyprint">int, uint, dchar</code></td> <td>32-bit</td></tr>
-<tr><td><code class="prettyprint">long, ulong</code></td> <td>64-bit</td></tr>
-</table>
+| tipo                          | tamanho
+|-------------------------------|------------
+|`bool`, `byte`, `ubyte`, `char`| 8-bit
+|`short`, `ushort`, `wchar`     | 16-bit
+|`int`, `uint`, `dchar`         | 32-bit
+|`long`, `ulong`                | 64-bit
 
-#### Floating point types:
+#### Tipos ponto flutuante:
 
-<table class="table table-hover">
-<tr><td width="250px"><code class="prettyprint">float</code></td> <td>32-bit</td></tr>
-<tr><td><code class="prettyprint">double</code></td> <td>64-bit</td></tr>
-<tr><td><code class="prettyprint">real</code></td> <td>depending on platform, 80-bit on Intel x86 32-bit</td></tr>
-</table>
+| tipo    | tamanho
+|---------|--------------------------------------------------
+|`float`  | 32-bit
+|`double` | 64-bit
+|`real`   | >= 64-bit (geralmente 64-bit, mas 80-bit em Intel x86 32-bit)
 
-The prefix `u` denotes *unsigned* types. `char` translates to
-UTF-8 characters, `wchar` is used in UTF-16 strings and `dchar`
-in UTF-32 strings.
+O prefixo `u` indica tipos *unsigned*. `char` se traduz em caracteres
+caracteres UTF-8, `wchar` é usado em strings UTF-16 e `dchar`
+em cadeias de caracteres UTF-32.
 
-A conversion between variables of different types is only
-allowed by the compiler if no precision is lost. A conversion
-between floating point types (e.g `double` to `float`)
-is allowed though.
+Uma conversão entre variáveis de tipos diferentes só é
+permitida pelo compilador se não houver perda de precisão. No entanto,
+uma conversão entre tipos de ponto flutuante
+(por exemplo, `double` para `float`) é permitida.
 
-A conversion to another type may be forced by using the
-`cast(TYPE) myVar` expression. It needs to be used with great care though,
-as the `cast` expression is allowed to break the type system.
+Uma conversão para outro tipo pode ser forçada com o uso da expressão
+`cast(TYPE) myVar`. No entanto, ela precisa ser usada com muito cuidado,
+pois a expressão `cast` pode quebrar o sistema de tipos.
 
-The special keyword `auto` creates a variable and infers its
-type from the right hand side of the expression. `auto myVar = 7`
-will deduce the type `int` for `myVar`. Note that the type is still
-set at compile-time and can't be changed - just like with any other
-variable with an explicitly given type.
+A palavra-chave especial `auto` cria uma variável e infere
+seu tipo a partir do lado direito da expressão. `auto myVar = 7`
+deduzirá o tipo `int` para `myVar`. Observe que o tipo ainda é
+definido em tempo de compilação e não pode ser alterado, como em qualquer outra
+variável com um tipo explicitamente fornecido.
 
-### Type properties
+### Propriedades de tipos
 
-All data types have a property `.init` to which they are initialized.
-For all integers this is `0` and for floating points it is `nan` (*not a number*).
+Todos os tipos de dados têm uma propriedade `.init` para a qual são inicializados.
+Para todos os números inteiros, essa propriedade é `0` e, para pontos flutuantes, é `nan` (*não é um número*).
 
-Integral and floating point types have a `.max` property for the highest value
-they can represent. Integral types also have a `.min` property for the lowest value
-they can represent, whereas floating point types have a `.min_normal` property
-which is defined to the smallest representable normalized value that's not 0.
+Os tipos de ponto flutuante e integral têm uma propriedade `.max` para o valor mais alto que podem representar.
+Os tipos integrais também têm uma propriedade `.min` para o valor mais baixo
+que podem representar, enquanto os tipos de ponto flutuante têm uma propriedade `.min_normal`
+que é definida como o menor valor normalizado representável que não é 0.
 
-Floating point types also have properties `.nan` (NaN-value), `.infinity`
-(infinity value), `.dig` (number of decimal digits of precisions), `.mant_dig`
-(number of bits in mantissa) and more.
+Os tipos de ponto flutuante também têm as propriedades `.nan` (valor NaN), `.infinity`
+(valor infinito), `.dig` (número de dígitos decimais das precisões), `.mant_dig`
+(número de bits na mantissa) e outras.
 
-Every type also has a `.stringof` property which yields its name as a string.
+Cada tipo também tem uma propriedade `.stringof` que produz seu nome como uma string.
 
-### Indexes in D
+### Índices em D
 
-In D, indexes usually have the alias type `size_t`, as it is a type that
-is large enough to represent an offset into all addressible memory - this is
-`uint` for 32-bit and `ulong` for 64-bit architectures.
+Em D, os índices geralmente têm o alias do tipo `size_t`, pois é um tipo que
+é grande o suficiente para representar um deslocamento em toda a memória endereçável - isto é
+`uint` para arquiteturas de 32 bits e `ulong` para arquiteturas de 64 bits.
 
-### Asserts
+### Expressão Assert
 
-`assert` is a compiler built-in which verifies conditions in debug mode and aborts
-with an `AssertionError` if it fails.
+O `assert` é uma expressão que verifica as condições no modo de depuração e aborta com um `AssertionError` se falhar.
+O `assert(0)` é, portanto, usado para marcar código inacessível.
 
-### In-depth
+### Maiores Detalhes
 
-#### Basic references
+#### Referências Básicas
 
 - [Assignment](http://ddili.org/ders/d.en/assignment.html)
 - [Variables](http://ddili.org/ders/d.en/variables.html)
@@ -79,39 +78,43 @@ with an `AssertionError` if it fails.
 - [Floating Point](http://ddili.org/ders/d.en/floating_point.html)
 - [Fundamental types in _Programming in D_](http://ddili.org/ders/d.en/types.html)
 
-#### Advanced references
+#### Referencias Avançadas
 
 - [Overview of all basic data types in D](https://dlang.org/spec/type.html)
 - [`auto` and `typeof` in _Programming in D_](http://ddili.org/ders/d.en/auto_and_typeof.html)
 - [Type properties](https://dlang.org/spec/property.html)
+- [Assert expression](https://dlang.org/spec/expression.html#AssertExpression)
 
 ## {SourceCode}
 
 ```d
-import std.stdio;
+import std.stdio : writeln;
 
 void main()
 {
-    // Big numbers can be separated
-    // with an underscore "_"
-    // to enhance readability.
+    // Números grandes podem ser separados
+    // utilizando sublinha "_"
+    // melhorando a legibilidade.
     int b = 7_000_000;
-    short c = cast(short) b; // cast needed
-    uint d = b; // fine
+    // necessário cast
+    // para conversão explícita
+    short c = cast(short) b;
+    uint d = b; // conversão implícita
     int g;
     assert(g == 0);
 
-    auto f = 3.1415f; // f denotes a float
+    // f denota-se ser do tipo float
+    auto f = 3.1415f;
 
-    // typeid(VAR) returns the type information
-    // of an expression.
+    // typeid(VAR) retorna a informação
+    // sobre o tipo da expressão.
     writeln("type of f is ", typeid(f));
-    double pi = f; // fine
-    // for floating-point types
-    // implicit down-casting is allowed
+    double pi = f; // conversão implícita
+    // para tipos de ponto flutuante
+    // permitindo a redução implícita
     float demoted = pi;
 
-    // access to type properties
+    // acessando as propriedades do tipo
     assert(int.init == 0);
     assert(int.sizeof == 4);
     assert(bool.max == 1);
