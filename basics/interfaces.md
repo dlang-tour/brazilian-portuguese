@@ -1,43 +1,41 @@
 # Interfaces
 
-D allows defining `interface`s which are technically like
-`class` types, but whose member functions must be implemented
-by any class inheriting from the `interface`.
+O D permite definir `interface`s que são tecnicamente como os tipos `class`,
+mas cujas funções membros devem ser implementadas
+por qualquer classe que herde da `interface`.
 
-    interface Animal {
+    interface IAnimal {
         void makeNoise();
     }
 
-The `makeNoise` member function has to be implemented
-by `Dog` because it inherits from the `Animal` interface.
-Essentially `makeNoise` behaves like an `abstract` member
-function in a base class.
+A função membro `makeNoise` deve ser implementada
+por `Dog` porque ela herda da interface `Animal`.
+Essencialmente, `makeNoise` se comporta como uma função membro `abstract`
+em uma classe base.
 
-    class Dog: Animal {
-        override makeNoise() {
+    class Dog : IAnimal {
+        void makeNoise() {
             ...
         }
     }
 
-    auto dog = new Animal;
-    Animal animal = dog; // implicit cast to interface
-    dog.makeNoise();
+    IAnimal animal = new Dog(); // conversão implícita a interface
+    animal.makeNoise();
 
-The number of `interface`s a `class` can implement isn't limited,
-but it can inherit from only *one* base class.
+Embora uma classe só possa herdar diretamente de *uma* classe base,
+ela pode implementar *qualquer número* de interfaces.
 
 ### NVI (non virtual interface) pattern
 
-The [NVI pattern](https://en.wikipedia.org/wiki/Non-virtual_interface_pattern)
-prevents the violation of a common execution pattern by allowing _non virtual_ methods
-for a common interface.
-D easily enables the NVI pattern by
-allowing the definition of `final` functions in an `interface`
-that aren't allowed to be overridden. This enforces specific
-behaviours customized by overriding the other `interface`
-functions.
+O [NVI pattern](https://en.wikipedia.org/wiki/Non-virtual_interface_pattern)
+permite métodos _não virtuais_ para uma interface comum.
+Portanto, esse padrão impede a violação de um padrão de execução comum.
+D ativa o padrão NVI ao
+permitir funções `final` (ou seja, não substituíveis) em uma `interface`.
+Isso impõe comportamentos específicos personalizados por meio da substituição de
+outras funções abstratas de `interface`.
 
-    interface Animal {
+    interface IAnimal {
         void makeNoise();
         final doubleNoise() // NVI pattern
         {
@@ -46,7 +44,7 @@ functions.
         }
     }
 
-### In-depth
+### Maiores detalhes
 
 - [Interfaces in _Programming in D_](http://ddili.org/ders/d.en/interface.html)
 - [Interfaces in D](https://dlang.org/spec/interface.html)
@@ -54,21 +52,17 @@ functions.
 ## {SourceCode}
 
 ```d
-import std.stdio;
+import std.stdio : writeln;
 
-interface Animal {
-    /*
-    Virtual function
-    which needs to be overridden!
-    */
+interface IAnimal {
     void makeNoise();
 
     /*
     NVI pattern. Uses makeNoise internally
     to customize behaviour inheriting
     classes.
-    
-    Params: 
+
+    Params:
         n =  number of repetitions
     */
     final void multipleNoise(int n) {
@@ -78,22 +72,22 @@ interface Animal {
     }
 }
 
-class Dog: Animal {
-    override void makeNoise() {
-        writeln("Bark!");
+class Dog: IAnimal {
+    void makeNoise() {
+        writeln("Woof!");
     }
 }
 
-class Cat: Animal {
-    override void makeNoise() {
+class Cat: IAnimal {
+    void makeNoise() {
         writeln("Meeoauw!");
     }
 }
 
 void main() {
-    Animal dog = new Dog;
-    Animal cat = new Cat;
-    Animal[] animals = [dog, cat];
+    IAnimal dog = new Dog;
+    IAnimal cat = new Cat;
+    IAnimal[] animals = [dog, cat];
     foreach(animal; animals) {
         animal.multipleNoise(5);
     }

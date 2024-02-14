@@ -1,45 +1,64 @@
 # Classes
 
-D provides support for classes and interfaces like in Java or C++.
+O D oferece suporte a classes e interfaces como em Java ou C++.
 
-Any `class` type inherits from [`Object`](https://dlang.org/phobos/object.html) implicitly.
+Qualquer tipo de `class` herda implicitamente do [`Object`](https://dlang.org/phobos/object.html) (objeto).
 
-    class Foo { } // inherits from Object
-    class Bar: Foo { } // Bar is a Foo too
+    class Foo { } // herda de Object
+    class Bar : Foo { } // Bar é imcorporado ao Foo
 
-Classes in D are generally instantiated on the heap using `new`:
+As classes em D geralmente são instanciadas no heap usando `new`:
 
     auto bar = new Bar;
 
-Class objects are always references types and unlike `struct` aren't
-copied by value.
+Os objetos de classe são sempre tipos de referência e, ao contrário do `struct`, não são
+copiados por valor.
 
-    Bar bar = foo; // bar points to foo
+    Bar bar = foo; // bar aponta para foo
 
-The garbage collector will make sure the memory is freed
-when no references to an object exist anymore.
+O coletor de lixo garantirá que a memória seja liberada
+quando não houver mais referências a um objeto.
 
-#### Inheritance
+#### Herança
 
-If a member function of a base class is overridden, the keyword
-`override` must be used to indicate that. This prevents unintentional
-overriding of functions.
+Se uma função de membro de uma classe base for substituída, a palavra-chave
+`override` deve ser usada para indicar isso. Isso evita a substituição não intencional
+sobreposição não intencional de funções.
 
-    class Bar: Foo {
+    class Bar : Foo {
         override functionFromFoo() {}
     }
 
-In D, classes can only inherit from one class.
+Em D, as classes só podem herdar de uma classe.
 
-#### Final and abstract member functions
+### Funções de membro Final e abstract
 
-A function can be marked `final` in a base class to disallow overriding
-it. A function can be declared as `abstract` to force base classes to override
-it. A whole class can be declared as `abstract` to make sure
-that it isn't instantiated. To access the base class,
-use the special keyword `super`.
+- Uma função pode ser declarada como `final` em uma classe base para não permitir
+a sobreposição dela
+- Uma função pode ser declarada como `abstract` para forçar as classes derivadas
+a sobrepor ela
+- Uma classe inteira pode ser declarada como `abstract` para garantir que
+que ela não seja instanciada
+- `super(...)` pode ser usado para chamar explicitamente o construtor da base
 
-### In-depth
+### Verificação de equivalência
+
+Para objetos de classe, os operadores `==` e `!=` comparam o conteúdo dos objetos.
+Portanto, a comparação com `null` é inválida, pois `null` não tem conteúdo.
+O `is` compara a equivalência. Para comparar a não-equivalência, use `e1 !is e2`.
+
+```d
+MyClass c;
+if (c == null)  // erro
+    ...
+if (c is null)  // ok
+    ...
+```
+
+Para objetos `struct`, todos os bits são comparados,
+para outros tipos de operandos, equivalência é o mesmo que igualdade.
+
+### Maiores detalhes
 
 - [Classes in _Programming in D_](http://ddili.org/ders/d.en/class.html)
 - [Inheritance in _Programming in D_](http://ddili.org/ders/d.en/inheritance.html)
@@ -49,7 +68,7 @@ use the special keyword `super`.
 ## {SourceCode}
 
 ```d
-import std.stdio;
+import std.stdio : writeln;
 
 /*
 Fancy type which can be used for
@@ -73,7 +92,7 @@ class Any {
     abstract string convertToString();
 }
 
-class Integer: Any {
+class Integer : Any {
     // just seen by Integer
     private {
         int number;
@@ -91,13 +110,13 @@ class Integer: Any {
     public:
 
     override string convertToString() {
-        import std.conv: to;
+        import std.conv : to;
         // The swiss army knife of conversion.
         return to!string(number);
     }
 }
 
-class Float: Any {
+class Float : Any {
     private float number;
 
     this(float number) {
@@ -106,7 +125,7 @@ class Float: Any {
     }
 
     override string convertToString() {
-        import std.string: format;
+        import std.string : format;
         // We want to control precision
         return format("%.1f", number);
     }
@@ -117,7 +136,7 @@ void main()
     Any[] anys = [
         new Integer(10),
         new Float(3.1415f)
-        ];
+    ];
 
     foreach (any; anys) {
         writeln("any's type = ", any.getType());

@@ -1,13 +1,13 @@
-# Exceptions
+# Exceções
 
-This guide is only about User-`Exceptions` - System-`Errors` are usually fatal
-and should __never__ be catched.
+Este guia trata apenas de User-`Exceptions` - System-`Errors` geralmente são fatais
+e _nunca_ devem ser capturados.
 
-### Catching Exception
+### Captura de exceções
 
-A common case for exceptions is to validate potentially invalid user input.
-Once an exception is thrown, the stack will be unwound until the first matching exception
-handler is found.
+Um caso comum de exceções é a validação de entradas do usuário potencialmente inválidas.
+Quando uma exceção for lançada, a pilha será deslocada até que o primeiro manipulador de exceção
+correspondente seja encontrado.
 
 ```d
 try
@@ -20,8 +20,8 @@ catch (FileException e)
 }
 ```
 
-You can also have multiple `catch` blocks and a `finally` block that is executed
-regardless of whether an error occurred. Exceptions are thrown with `throw`.
+É possível ter vários blocos `catch` e um bloco `finally` que é executado
+independentemente da ocorrência de um erro. As exceções são lançadas com `throw`.
 
 ```d
 try
@@ -42,12 +42,11 @@ finally
 }
 ```
 
-Remember that the scope guard is usually a better solution to the `try-finally`
-pattern.
+Lembre-se de que o [scope guard](gems/scope-guards) geralmente é uma solução melhor para o padrão `try-finally`.
 
-### Custom exceptions
+### Exceções personalizadas
 
-One can easily inherit from `Exception` and create custom exceptions:
+É possível herdar facilmente de `Exception` e criar exceções personalizadas:
 
 ```d
 class UserNotFoundException : Exception
@@ -59,11 +58,11 @@ class UserNotFoundException : Exception
 throw new UserNotFoundException("D-Man is on vacation");
 ```
 
-### Enter a safe world with `nothrow`
+### Entre em um mundo seguro com o `nothrow`
 
-The D compiler can ensure that a function can't cause catastrophic side-effects.
-Such functions can be annotated with the `nothrow` keyword. The D compiler
-statically forbids throwing exceptions in `nothrow` functions.
+O compilador D pode garantir que uma função não cause efeitos colaterais catastróficos.
+Essas funções podem ser anotadas com a palavra-chave `nothrow`. O compilador D
+proíbe estaticamente o lançamento de exceções em funções `nothrow`.
 
 ```d
 bool lessThan(int a, int b) nothrow
@@ -73,18 +72,22 @@ bool lessThan(int a, int b) nothrow
 }
 ```
 
-Please note that the compiler is able to infer attributes for templated code
-automatically.
+Observe que o compilador é capaz de inferir atributos para o código de modelo
+automaticamente.
 
 ### std.exception
 
-It is important to avoid contract programming for user-input as the contracts
-are removed when compiled in release mode. For convenience `std.exception` provides
-`enforce` that can be used like `assert`, but throws `Exceptions`
-instead of an `AssertError`.
+É importante evitar o `assert` e o que será introduzido em breve
+[contract programming](gems/contract-programming)
+para a entrada do usuário, pois o `assert` e os contratos
+são removidos quando compilados no modo de lançamento. Por conveniência
+[`std.exception`](https://dlang.org/phobos/std_exception.html) fornece
+[`enforce`](https://dlang.org/phobos/std_exception.html#enforce)
+que pode ser usado como o `assert`, mas lança `Exception`s
+em vez de um `AssertError`.
 
 ```d
-import std.exception: enforce;
+import std.exception : enforce;
 float magic = 1_000_000_000;
 enforce(magic + 42 - magic == 42, "Floating-point math is fun");
 
@@ -92,19 +95,20 @@ enforce(magic + 42 - magic == 42, "Floating-point math is fun");
 enforce!StringException('a' != 'A', "Case-sensitive algorithm");
 ```
 
-However there's more in `std.exception`. For example when the error might not be
-fatal, one can opt-in to `collect` it:
+No entanto, há mais em `std.exception`. Por exemplo, quando o erro pode não ser
+fatal, é possível optar por
+[collect](https://dlang.org/phobos/std_exception.html#collectException):
 
 ```d
-import std.exception: collectException;
+import std.exception : collectException;
 auto e = collectException(aDangerousOperation());
 if (e)
     writeln("The dangerous operation failed with ", e);
 ```
 
-To test whether an exception is thrown in tests, use `assertThrown`.
+Para verificar se uma exceção foi lançada nos testes, use [`assertThrown`](https://dlang.org/phobos/std_exception.html#assertThrown).
 
-### In-depth
+### Maiores detalhes
 
 - [Exception Safety in D](https://dlang.org/exception-safe.html)
 - [std.exception](https://dlang.org/phobos/std_exception.html)
@@ -114,8 +118,8 @@ To test whether an exception is thrown in tests, use `assertThrown`.
 ## {SourceCode}
 
 ```d
-import std.file;
-import std.stdio;
+import std.file : FileException, readText;
+import std.stdio : writeln;
 
 void main()
 {
@@ -125,13 +129,13 @@ void main()
     }
     catch (FileException e)
     {
-		writeln("Message:\n", e.msg);
-		writeln("File: ", e.file);
-		writeln("Line: ", e.line);
-		writeln("Stack trace:\n", e.info);
+        writeln("Message:\n", e.msg);
+        writeln("File: ", e.file);
+        writeln("Line: ", e.line);
+        writeln("Stack trace:\n", e.info);
 
-		// Default formatting could be used too
-		// writeln(e);
+        // Default formatting could be used too
+        // writeln(e);
     }
 }
 ```

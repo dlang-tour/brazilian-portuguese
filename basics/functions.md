@@ -1,35 +1,34 @@
-# Functions
+# Funções
 
-One function has already been introduced: `main()` - the starting point of every
-D program. A function may return a value (or be declared with
-`void` if nothing is returned) and accept an arbitrary number of arguments:
+Uma função já foi introduzida: `main()` - o ponto de partida de todo programa
+programa D. Uma função pode retornar um valor (ou ser declarada com `void`
+se nada for retornado) e aceitar um número arbitrário de argumentos:
 
     int add(int lhs, int rhs) {
         return lhs + rhs;
     }
 
-### `auto` return types
+### Retornar tipo `auto`
 
-If the return type is defined as `auto`, the D compiler infers the return
-type automatically. Hence multiple `return` statements must return values with
-compatible types.
+Se o tipo de retorno for definido como `auto`, o compilador D infere o tipo de retorno
+automaticamente. Portanto, várias instruções `return` devem retornar valores com
+tipos compatíveis.
 
-    auto add(int lhs, int rhs) { // returns `int`
+    auto add(int lhs, int rhs) { // retorna `int`
         return lhs + rhs;
     }
 
-    auto lessOrEqual(int lhs, int rhs) { // returns `double`
+    auto lessOrEqual(int lhs, int rhs) { // retorna `double`
         if (lhs <= rhs)
             return 0;
         else
             return 1.0;
     }
 
-### Default arguments
+### Argumentos pré-atribuidos
 
-Functions may optionally define default arguments.
-This avoids the tedious work of declaring redundant
-overloads.
+As funções podem, opcionalmente, definir argumentos padrão.
+Isso evita o trabalho tedioso de declarar sobrecargas redundantes.
 
     void plot(string msg, string color = "red") {
         ...
@@ -37,15 +36,15 @@ overloads.
     plot("D rocks");
     plot("D rocks", "blue");
 
-Once a default argument has been specified, all following arguments
-must be default arguments too.
+Uma vez que um argumento padrão tenha sido especificado, todos os argumentos seguintes
+também devem ser argumentos padrão.
 
-### Local functions
+### Funções locais
 
-Functions may even be declared inside other functions, where they may be
-used locally and aren't visible to the outside world.
-These functions can even have access to objects that are local to
-the parent's scope:
+As funções podem até ser declaradas dentro de outras funções, onde podem ser
+usadas localmente e não são visíveis para o mundo externo.
+Essas funções podem até mesmo ter acesso a objetos que são locais para
+escopo da função principal:
 
     void fun() {
         int local = 10;
@@ -54,10 +53,10 @@ the parent's scope:
         }
         ...
 
-Such nested functions are called delegates, and they will be explained in more depth
-[soon](basics/delegates).
+Essas funções aninhadas são chamadas de delegates e serão explicadas com mais detalhes
+[em breve](basics/delegates).
 
-### In-depth
+### Maiores detalhes
 
 - [Functions in _Programming in D_](http://ddili.org/ders/d.en/functions.html)
 - [Function parameters in _Programming in D_](http://ddili.org/ders/d.en/function_parameters.html)
@@ -66,8 +65,8 @@ Such nested functions are called delegates, and they will be explained in more d
 ## {SourceCode}
 
 ```d
-import std.stdio;
-import std.random;
+import std.stdio : writeln;
+import std.random : uniform;
 
 void randomCalculator()
 {

@@ -10,3 +10,18 @@ não hesite em abrir uma [issue](https://github.com/dlang-tour/brazilian-portugu
 
 Você também pode estar procurando pelo [repositório base](https://github.com/dlang-tour)
 que hospeda o conteúdo.
+
+Executar localmente
+-----------
+
+Você precisará buscar o [repositório base](https://github.com/dlang-tour/core) via DUB uma vez:
+
+```sh
+dub fetch dlang-tour
+```
+
+Agora você pode executar o `dlang-tour` no diretório principal desse repositório:
+
+```sh
+dub run dlang-tour -- --lang-dir .
+```

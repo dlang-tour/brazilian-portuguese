@@ -1,117 +1,134 @@
 # Arrays
 
-There are two types of Arrays in D: **static** and **dynamic**.
-Access to arrays of any kind is always bounds checked -
-a failed range check yields a `RangeError` which aborts the application.
-The brave can disable this with the compiler flag `-boundschecks=off`, in order
-to squeeze the last cycles out of their binary.
+Há dois tipos de arrays em D: **estático** e **dinâmico**.
+O acesso aos arrays de qualquer tipo é submetido à verificação de limites [_bounds-checked_]
+(exceto quando o compilador consegue provar que as verificações não são necessárias).
+Uma falha na verificação de limites gera um `RangeError` que interrompe o aplicativo.
+O desenvolvedor pode desativar esse recurso de segurança com o sinalizador do compilador
+sinalizador do compilador `-boundscheck=off`
+para obter melhorias na velocidade ao custo da segurança.
 
-#### Static arrays
+### Arrays estáticos
 
-Static arrays are stored on the stack if defined inside a function,
-or in static memory otherwise. They have a fixed,
-compile-time known length. A static array's type includes
-the fixed size:
+Arrays estáticos são armazenadas na pilha se forem definidas dentro de uma função,
+ou na memória estática, caso contrário. Eles possuem tamanho fixo,
+tamanho esse conhecido em tempo de compilação. O tipo de um array estático inclui
+o tamanho fixo:
 
     int[8] arr;
 
-`arr`'s type is `int[8]`. Note that the size of the array is denoted
-next to the type, and not after the variable name like in C/C++.
+O tipo de `arr` é `int[8]`. Observe que o tamanho do array é indicado
+ao lado do tipo, e não após o nome da variável, como ocorre em C e C++.
 
-#### Dynamic arrays
+### Arrays dinâmicos
 
-Dynamic arrays are stored on the heap and can be expanded
-or shrunk at runtime. A dynamic array is created using a `new` expression
-and its length:
+As matrizes dinâmicas são armazenadas no heap e podem ser expandidas
+ou encolhidos em tempo de execução. Um array dinâmico é criado usando
+uma expressão `new` e seu tamanho:
 
-    int size = 8; // run-time variable
+    int size = 8; // variável em tempo de execução (run-time)
     int[] arr = new int[size];
 
-The type of `arr` is `int[]`, which is a **slice**. Slices
-will be explained in more detail in the next section. Multi-dimensional
-arrays can be created easily using the `auto arr = new int[3][3]` syntax.
+O tipo de `arr` é `int[]`, que também é chamado de **slice**. Os slices
+são pontos em um bloco contíguo de memória e serão explicadas
+em mais detalhes na [próxima seção](basics/slices).
+Os arrays multidimensionais podem ser criados facilmente
+usando a sintaxe `auto arr = new int[3][3]`.
 
-#### Array operations and properties
+### Propriedades e operações do array
 
-Arrays can be concatenated using the `~` operator, which
-will create a new dynamic array.
+Os arrays estáticos e dinâmicos fornecem a propriedade `.length`,
+que é somente leitura para arrays estáticos, mas pode ser usada no caso de
+matrizes dinâmicas para alterar seu tamanho dinamicamente. A propriedade
+propriedade `.dup` cria uma cópia do array.
 
-Mathematical operations can
-be applied to whole arrays using a syntax like `c[] = a[] + b[]`, for example.
-This adds all elements of `a` and `b` so that
-`c[0] = a[0] + b[0]`, `c[1] = a[1] + b[1]`, etc. It is also possible
-to perform operations on a whole array with a single
-value:
+A indexação de um array refere-se a um elemento desse array.
+Ao indexar um array por meio da sintaxe `arr[idx]`, um símbolo especial
+especial `$` indica o comprimento de um array. Por exemplo, `arr[$ - 1]` faz referência
+o último elemento e é uma forma abreviada de `arr[arr.length - 1]`.
 
-    a[] *= 2; // multiple all elements by 2
-    a[] %= 26; // calculate the modulo by 26 for all a's
+Os arrays podem ser concatenados usando o operador `~`, que
+criará um novo array dinâmico.
 
-These operations might be optimized
-by the compiler to use special processor instructions that
-do the operations in one go.
+    int[] a = [1, 2];
+    a ~= [3, 4];
+    assert(a.length == 4);
+    a[0] = 10;
+    a.length--;
+    assert(a == [10, 2, 3]);
 
-Both static and dynamic arrays provide the property `.length`,
-which is read-only for static arrays, but can be used in the case of 
-dynamic arrays to change its size dynamically. The
-property `.dup` creates a copy of the array.
+#### Aritmética de vetores
 
-When indexing an array through the `arr[idx]` syntax, a special
-`$` symbol denotes an array's length. For example, `arr[$ - 1]` references
-the last element and is a short form for `arr[arr.length - 1]`.
+As operações matemáticas podem
+ser aplicadas a matrizes inteiras usando uma sintaxe como `c[] = a[] + b[]`, por exemplo.
+Isso adiciona todos os elementos de `a` e `b` de modo que
+`c[0] = a[0] + b[0]`, `c[1] = a[1] + b[1]`, etc. Também é possível
+realizar operações em um array inteiro com um único
+valor:
 
-### Exercise
+    a[] *= 2; // multiplica todos os elementos por 2
+    a[] %= 26; // calcula o módulo 26 por todos os a's
 
-Complete the function `encrypt` to decrypt the secret message.
-The text should be encrypted using *Caesar encryption*,
-which shifts the characters in the alphabet using a certain index.
-The to-be-encrypted text only contains characters in the range `a-z`,
-which should make things easier.
+Essas operações podem ser otimizadas
+pelo compilador para usar instruções especiais do processador que
+realizam as operações de uma só vez.
 
-### In-depth
+### Exercício
+
+Complete a função `encrypt` para criptografar a mensagem secreta.
+O texto deve ser criptografado usando a criptografia *Caesar*,
+que desloca os caracteres no alfabeto usando um determinado índice.
+O texto a ser criptografado contém apenas caracteres no intervalo `a-z`,
+o que deve facilitar as coisas.
+
+Você pode procurar a solução [aqui](https://github.com/dlang-tour/core/issues/227).
+
+### Maiores detalhes
 
 - [Arrays in _Programming in D_](http://ddili.org/ders/d.en/arrays.html)
+- [D Slices](https://dlang.org/d-array-article.html)
 - [Array specification](https://dlang.org/spec/arrays.html)
 
 ## {SourceCode:incomplete}
 
 ```d
-import std.stdio;
+import std.stdio : writeln;
 
 /**
-Shifts every character in the
-array `input` for `shift` characters.
-The character range is limited to `a-z`
-and the next character after z is a.
+Desloque todos os caracteres do
+array `input` para os caracteres `shift`.
+O intervalo de caracteres é limitado a `a-z`
+e o próximo caractere após z é a.
 
-Params:
-    input = array to shift
-    shift = shift length for each char
-Returns:
-    Shifted char array
+Parâmetros:
+    input = array para deslocar
+    shift = tamanho do deslocamento
+Retonará:
+    Array de caracteres deslocados
 */
 char[] encrypt(char[] input, char shift)
 {
     auto result = input.dup;
-    // ...
+    // TODO: desloque cada caractere
     return result;
 }
 
 void main()
 {
-    // We will now encrypt the message with
-    // Caesar encryption and a
-    // shift factor of 16!
+    // Agora, criptografaremos a mensagem com
+    // criptografia Caesar e um
+    // fator de deslocamento é 16!
     char[] toBeEncrypted = [ 'w','e','l','c',
       'o','m','e','t','o','d',
-      // The last , is okay and will just
-      // be ignored!
+      // O último , não tem problema
+      // e será simplesmente ignorado!
     ];
     writeln("Before: ", toBeEncrypted);
     auto encrypted = encrypt(toBeEncrypted, 16);
     writeln("After: ", encrypted);
 
-    // Make sure we the algorithm works
-    // as expected
+    // Verifique se o algoritmo funciona
+    // como esperado
     assert(encrypted == [ 'm','u','b','s','e',
             'c','u','j','e','t' ]);
 }
