@@ -1,53 +1,63 @@
 # Loops
 
-D provides four loop constructs.
+D oferece quatro construções de loop.
 
-### 1) Classical `for` loop
+### 1) `while`
 
-The classical `for` loop known from C/C++ or Java
-with _initializer_, _loop condition_ and _loop statement_:
+`while` executa o bloco de código fornecido
+enquanto uma determinada condição é atendida:
 
-    for (int i = 0; i < arr.length; ++i) {
-        ...
-
-### 2) `while`
-
-`while`  loops execute the given code block
-while a certain condition is met:
-
-    while (condition) {
+    while (condition)
+    {
         foo();
     }
 
-### 3) `do ... while`
+### 2) `do ... while`
 
-The `do .. while` loops execute the given code block
-while a certain condition is met, but in contrast to `while`
-the _loop block_ is executed before the loop condition is
-evaluated for the first time.
+`do ... while` executa o bloco de código fornecido
+enquanto uma determinada condição é atendida, mas, ao contrário do `while`
+o _bloco do loop_ é executado antes que a condição do loop seja
+avaliada pela primeira vez.
 
-    do {
+    do
+    {
         foo();
     } while (condition);
 
-#### 4) `foreach`
+### 3) O clássico `for` loop
 
-The [`foreach` loop](basics/foreach) which will be introduced in the
-next section.
+O clássico `for` loop conhecido em C, C++ ou Java
+com _initializer_, _loop condition_ e _loop statement_:
 
-#### Special keywords and labels
+    for (int i = 0; i < arr.length; i++)
+    {
+        ...
 
-The special keyword `break` will immediately abort the current loop.
-In a nested loop a _label_ can be used to break of any outer loop:
+### 4) `foreach`
 
-    outer: for (int i = 0; i < 10; ++i) {
-        for (int j = 0; j < 5; ++j) {
+[`foreach`](basics/foreach), será apresentado em mais detalhes
+na próxima seção:
+
+    foreach (el; arr)
+    {
+        ...
+    }
+
+#### Palavra-chave especial e labels
+
+A palavra-chave especial `break` interromperá imediatamente o loop atual.
+Em um loop aninhado, um _label_ pode ser usado para sair de qualquer loop externo:
+
+    outer: for (int i = 0; i < 10; ++i)
+    {
+        for (int j = 0; j < 5; ++j)
+        {
             ...
             break outer;
 
-The keyword `continue` starts with the next loop iteration.
+A palavra-chave `continue` inicia a próxima iteração do loop.
 
-### In-depth
+### Maiores detalhes
 
 - `for` loop in [_Programming in D_](http://ddili.org/ders/d.en/for.html), [specification](https://dlang.org/spec/statement.html#ForStatement)
 - `while` loop in [_Programming in D_](http://ddili.org/ders/d.en/while.html), [specification](https://dlang.org/spec/statement.html#WhileStatement)
@@ -56,28 +66,25 @@ The keyword `continue` starts with the next loop iteration.
 ## {SourceCode}
 
 ```d
-import std.stdio;
+import std.stdio : writeln;
 
 /*
 Computes the average of
 the elements of an array.
 */
-double average(int[] array) {
-    // The property .empty for arrays isn't
-    // native in D but has to be made accessible
-    // by importing the function from std.array
-    import std.array: empty, front;
-
+double average(int[] array)
+{
+    immutable initialLength = array.length;
     double accumulator = 0.0;
-    auto length = array.length;
-    while (!array.empty) {
+    while (array.length)
+    {
         // this could be also done with .front
-        // with import std.array: front;
+        // with import std.array : front;
         accumulator += array[0];
         array = array[1 .. $];
     }
 
-    return accumulator / length;
+    return accumulator / initialLength;
 }
 
 void main()
@@ -86,7 +93,8 @@ void main()
           [2, 3, 2, 3], // 10
           [3, 6, 2, 9] ]; // 20
 
-    for (auto i = 0; i < testers.length; ++i) {
+    for (auto i = 0; i < testers.length; ++i)
+    {
       writeln("The average of ", testers[i],
         " = ", average(testers[i]));
     }

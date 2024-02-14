@@ -1,38 +1,38 @@
-# Associative Arrays
+# Arrays Associativos
 
-D has built-in *associative arrays* also known as hash maps.
-An associative array with a key type of `string` and a value type
-of `int` is declared as follows:
+O D tem *arrays associativos* incorporados, também conhecidos como mapas de hash.
+Um array associativo com um tipo de chave `string` e um tipo de valor
+de `int` é declarado da seguinte forma:
 
     int[string] arr;
 
-The value can be accessed by its key and thus be set:
+O valor pode ser acessado por sua chave e, assim, ser definido:
 
     arr["key1"] = 10;
 
-To test whether a key is located in the associative array, the
-`in` expression can be used:
+Para testar se uma chave está localizada no array associativo, a expressão
+expressão `in` pode ser usada:
 
     if ("key1" in arr)
         writeln("Yes");
 
-The `in` expression returns a pointer to the value if it
-can be found or a `null` pointer otherwise. Thus existence check
-and writes can be conveniently combined:
+A expressão `in` retorna um ponteiro para o valor se ele
+puder ser encontrado ou um ponteiro `null` caso contrário. Assim, a verificação de existência
+e gravações podem ser convenientemente combinadas:
 
     if (auto val = "key1" in arr)
         *val = 20;
 
-Access to a key which doesn't exist yields an `RangeError`
-that immediately aborts the application. For a safe access
-with a default value, `get(key, defaultValue)` can be used.
+O acesso a uma chave que não existe gera um `RangeError`
+que interrompe imediatamente o aplicativo. Para acesso seguro
+com um valor padrão, `get(key, defaultValue)` pode ser usado.
 
-AA's have the `.length` property like arrays and provide
-a `.remove(val)` member to remove entries by their key.
-It is left as an exercise to the reader to explore
-the special `.byKey` and `.byValue` ranges.
+Os AAs têm a propriedade `.length` como os arrays e fornecem
+um membro `.remove(key)` para remover entradas por sua chave.
+Deixamos como exercício para o leitor explorar
+os intervalos especiais `.byKey` e `.byValue`.
 
-### In-depth
+### Maiores detalhes
 
 - [Associative arrays in _Programming in D_](http://ddili.org/ders/d.en/aa.html)
 - [Associative arrays specification](https://dlang.org/spec/hash-map.html)
@@ -41,47 +41,47 @@ the special `.byKey` and `.byValue` ranges.
 ## {SourceCode}
 
 ```d
-import std.stdio;
-
-/**
-Splits the given text into words and returns
-an associative array that maps words to their
-respective word counts.
-
-Params:
-    text = text to be splitted
-*/
-int[string] wordCount(string text)
-{
-    // The function splitter lazily splits the
-    // input into a range
-    import std.algorithm.iteration: splitter;
-    import std.string: toLower;
-
-    // Indexed by words and returning the count
-    int[string] words;
-
-    foreach(word; splitter(text.toLower(), " "))
-    {
-        // Increment word count if word
-        // has been found.
-        // Integers are by default 0.
-        words[word]++;
-    }
-
-    return words;
-}
+import std.array : assocArray;
+import std.algorithm.iteration: each, group,
+    splitter, sum;
+import std.string: toLower;
+import std.stdio : writefln, writeln;
 
 void main()
 {
-    string text = "D is a lot of fun";
+    string text = "Rock D with D";
 
-    auto wc = wordCount(text);
-    writeln("Word counts: ", wc);
+    // Iterar sobre todas as palavras e contar
+    // cada palavra uma vez
+    int[string] words;
+    text.toLower()
+        .splitter(" ")
+        .each!(w => words[w]++);
 
-    // possible iterations:
-    // byKey, byValue, byKeyValue
-    foreach (word; wc.byValue)
-        writeln(word);
+    foreach (key, value; words)
+        writefln("key: %s, value: %d",
+                       key, value);
+
+    // `.keys` e `.values` retornam arrays
+    writeln("Words: ", words.keys);
+
+    // `.byKey`, `.byValue` e `.byKeyValue`
+    // return lazy, iteratable ranges
+    writeln("# Words: ", words.byValue.sum);
+
+    // Um novo array associativo pode ser criado
+    // com `assocArray` passando um
+    // intervalo de tuplas de chave/valor;
+    auto array = ['a', 'a', 'a', 'b', 'b',
+                  'c', 'd', 'e', 'e'];
+
+    // `.group` agrupa elementos 
+    // consecutivamente equivalentes
+    // em uma única tupla do elemento
+    // elemento e o número de suas repetições
+    auto keyValue = array.group;
+    writeln("Key/Value range: ", keyValue);
+    writeln("Associative array: ",
+             keyValue.assocArray);
 }
 ```

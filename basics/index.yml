@@ -1,9 +1,9 @@
-title: D's Basics
+title: Fundamentos de D
 ordering:
 - imports-and-modules
 - basic-types
 - memory
-- storage-classes
+- type-qualifiers
 - controlling-flow
 - functions
 - structs

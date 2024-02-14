@@ -1,53 +1,51 @@
 # Slices
 
-Slices are objects from type `T[]` for any given type `T`.
-Slices provide a view on a subset of an array
-of `T` values - or just point to the whole array.
-**Slices and dynamic arrays are the same.**
+Slices são objetos do tipo `T[]` para qualquer tipo `T`.
+Os slices fornecem uma visualização em um subconjunto de uma matriz
+de valores `T` ou simplesmente apontam para todo o array.
 
-A slice consists of two members - a pointer to the starting element and the
-length of the slice:
+**Slices e arrays dinâmicos são a mesma coisa.**
+
+Um slice consiste em dois membros - um ponteiro para o elemento inicial e o
+tamanho do slice:
 
     T* ptr;
-    size_t length; // unsigned 32 bit on 32bit, unsigned 64 bit on 64bit
+    size_t length; // unsigned 32 bit em 32bit, unsigned 64 bit em 64bit
 
-### Getting a slice via new allocation
+### Obtendo um slice por meio de uma nova alocação
 
-If a new dynamic array is created, a slice to this freshly
-allocated memory is returned:
+Se um novo array dinâmico for criado, será retornado um slice para essa
+memória recém-alocada:
 
     auto arr = new int[5];
-    assert(arr.length == 5); // memory referenced in arr.ptr
+    assert(arr.length == 5); // referenciando memória em arr.ptr
 
-Actual allocated memory in this case is completely managed by garbage
-collector, returned slice acts as a "view" on underlying elements.
+A memória real alocada, nesse caso, é totalmente gerenciada pelo coletor de lixo.
+O slice retornado funciona como um ponto entre dois elementos subjacentes.
 
-### Getting a slice to existing memory
+### Obtendo um slice numa memória existente
 
-Using a slicing operator one can also get a slice pointing to some already
-existing memory. Slicing operator can be applied to another slice, static
-arrays, structs/classes implementing `opSlice` and few other entities.
+Usando um operador de slicing, também é possível obter um slice apontando para alguma memória já existente.
+O operador de slicing pode ser aplicado a outro slice, arrays estáticos, structs/classes que implementam `opSlice` e algumas outras entidades.
 
-In an example expression `origin[start .. end]` slicing operator is used to get
-a slice of all elements of `origin` from `start` to the element _before_ `end`:
+Em uma expressão de exemplo `origin[start .. end]`, o operador de divisão é usado para obter
+um slice de todos os elementos de `origin` de `start` até o elemento _before_ `end`:
 
-    auto newArr = arr[1 .. 4]; // index 4 ist NOT included
+    auto newArr = arr[1 .. 4]; // O índice 4 NÃO está incluso
     assert(newArr.length == 3);
-    newArr[0] = 10; // changes newArr[0] aka arr[1]
+    newArr[0] = 10; // altera newArr[0] também conhecido como arr[1]
 
-Such slices generate a new view on existing memory. They *don't* create
-a new copy. If no slice holds a reference to that memory anymore - or a *sliced*
-part of it - it will be freed by the garbage collector.
+Esses slices geram um novo ponto de extremidade numa memória existente. Eles *não* criam
+uma nova cópia. Se nenhum slice tiver mais uma referência a essa memória - ou uma parte *cortada* dela - ela será liberada pelo coletor de lixo.
 
-Using slices, it's possible to write very efficient code for things (like parsers, for example)
-that only operate on one memory block, and slice only the parts they really need
-to work on. In this way, there's no need to allocate new memory blocks.
+Usando slices, é possível escrever um código muito eficiente para coisas (como parsers, por exemplo)
+que operam somente em um bloco de memória e separam somente as partes que realmente precisam
+trabalhar. Dessa forma, não há necessidade de alocar novos blocos de memória.
 
-As seen in the previous section, the `[$]` expression is a shorthand form for
-`arr.length`. Hence `arr[$]` indexes the element one past the slice's end, and
-thus would generate a `RangeError` (if bounds-checking hasn't been disabled).
+Como visto na [seção anterior](basics/arrays), a expressão `[$]` é uma forma abreviação de
+`arr.length`. Portanto, `arr[$]` indexa o elemento após o final do slice e, portanto, geraria um `RangeError` (se a verificação de limites não tiver sido desativada).
 
-### In-depth
+### Maiores detalhes
 
 - [Introduction to Slices in D](http://dlang.org/d-array-article.html)
 - [Slices in _Programming in D_](http://ddili.org/ders/d.en/slices.html)
@@ -55,30 +53,26 @@ thus would generate a `RangeError` (if bounds-checking hasn't been disabled).
 ## {SourceCode}
 
 ```d
-import std.stdio;
-
-/**
-Calculates the minimum of all values
-in a slice recursively. For every recursive
-call a sub-slice is taken thus we don't
-create a copy and don't do any allocations.
-*/
-int minimum(int[] slice)
-{
-    assert(slice.length > 0);
-    if (slice.length == 1)
-        return slice[0];
-    auto otherMin = minimum(slice[1 .. $]);
-    return slice[0] < otherMin ?
-        slice[0] : otherMin;
-}
+import std.stdio : writeln;
 
 void main()
 {
     int[] test = [ 3, 9, 11, 7, 2, 76, 90, 6 ];
-    auto min = minimum(test);
-    writefln("The minimum of %s is %d",
-        test, min);
-    assert(min == 2);
+    test.writeln;
+    writeln("First element: ", test[0]);
+    writeln("Last element: ", test[$ - 1]);
+    writeln("Exclude the first two elements: ",
+        test[2 .. $]);
+
+    writeln("Slices are views on the memory:");
+    auto test2 = test;
+    auto subView = test[3 .. $];
+    test[] += 1; // increment each element by 1
+    test.writeln;
+    test2.writeln;
+    subView.writeln;
+
+    // Create an empty slice
+    assert(test[2 .. 2].length == 0);
 }
 ```

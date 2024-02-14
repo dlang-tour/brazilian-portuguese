@@ -1,7 +1,6 @@
-# Control flow
+# Fluxo de controle
 
-An application's flow can be controlled conditionally with `if` and `else`
-statements:
+O fluxo de um aplicativo pode ser controlado condicionalmente com declarações `if` e `else`:
 
     if (a == 5) {
         writeln("Condition is met");
@@ -11,35 +10,35 @@ statements:
         writeln("Nothing is met!");
     }
 
-When an `if` or `else` block only contains one statement,
-the braces can be omitted.
+Quando um bloco `if` ou `else` contém apenas uma instrução,
+as chaves podem ser omitidas.
 
-D provides the same operators as C/C++ and Java to test
-variables for equality or compare them:
+O D fornece os mesmos operadores que o C, C++ e o Java para testar
+variáveis quanto à equivalência ou compará-las:
 
-* `==` and `!=` for testing equality and inequality
-* `<`, `<=`, `>` and `>=` for testing less than (or equal to) and greater than (or equal to)
+* `==` e `!=` para testar a equivalência ou diferença
+* `<`, `<=`, `>` e `>=` para testar se são menores (ou iguais) e maiores (ou iguais)
 
-For combining multiple conditions, the `||` operator represents
-the logical *OR*, and `&&` the logical *AND*.
+Para combinar várias condições, o operador `||` representa
+o operador lógico *OR*, e `&&` o operador lógico *AND*.
 
-D also defines a `switch`..`case` statement which executes one case
-depending on the value of *one* variable. `switch`
-works with all basic types as well as strings!
-It's even possible to define ranges for integral types
-using the `case START: .. case END:` syntax. Make sure to
-take a look at the source code example.
+D também define uma instrução `switch`..`case` que executa um caso
+dependendo do valor de *uma* variável. `switch`
+funciona com todos os tipos básicos e também com strings!
+É possível até mesmo definir intervalos para tipos integrais
+usando a sintaxe `case START: ... case END:`. Não deixe de
+dar uma olhada no exemplo do código-fonte.
 
-### In-depth
+### Maiores detalhes
 
-#### Basic references
+#### Referências básicas
 
 - [Logical expressions in _Programming in D_](http://ddili.org/ders/d.en/logical_expressions.html)
 - [If statement in _Programming in D_](http://ddili.org/ders/d.en/if.html)
 - [Ternary expressions in _Programming in D_](http://ddili.org/ders/d.en/ternary.html)
 - [`switch` and `case` in _Programming in D_](http://ddili.org/ders/d.en/switch_case.html)
 
-#### Advanced references
+#### Referências avançadas
 
 - [Expressions in detail](https://dlang.org/spec/expression.html)
 - [If Statement specification](https://dlang.org/spec/statement.html#if-statement)
@@ -47,7 +46,7 @@ take a look at the source code example.
 ## {SourceCode}
 
 ```d
-import std.stdio;
+import std.stdio : writeln;
 
 void main()
 {
@@ -58,11 +57,11 @@ void main()
     switch(c) {
         case 0: .. case 9:
             writeln(c, " is within 0-9");
-            break; // necessary!
+            break; // interrupção necessária!
         case 10:
             writeln("A Ten!");
             break;
-        default: // if nothing else matches
+        default: // não encontrou nenhum caso,
             writeln("Nothing");
             break;
     }

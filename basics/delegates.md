@@ -1,44 +1,44 @@
 # Delegates
 
-### Functions as arguments
+### Funções como argumentos
 
-A function can also be a parameter to another function:
+Uma função também pode ser um parâmetro para outra função:
 
     void doSomething(int function(int, int) doer) {
         // call passed function
         doer(5,5);
     }
 
-    doSomething(add); // use global function `add` here
-                      // add must have 2 int parameters
+    doSomething(&add); // use a função global `add` aqui
+                       // add deve ter 2 parâmetros int
 
-`doer` can then be called like any other normal function.
+`doer` pode então ser chamado como qualquer outra função normal.
 
-### Local functions with context
+### Funções locais com contexto
 
-The above example uses the `function` type which is
-a pointer to a global function. As soon as a member
-function or a local function is referenced, `delegate`'s
-have to be used. It's a function pointer
-that additionally contains information about its
-context - or *enclosure*, thus also called **closure**
-in other languages. For example a `delegate`
-that points to a member function of a class also includes
-the pointer to the class object. A `delegate` created by
-a nested function includes a link to the enclosing context
-instead. However, the D compiler may automatically make a copy of
-the context on the heap if it is necessary for memory safety -
-then a delegate will link to this heap area.
+O exemplo acima usa o tipo `function` que é
+um ponteiro para uma função global. Assim que uma função membro
+ou uma função local é referenciada, os `delegate`
+devem ser usados. Trata-se de um ponteiro de função
+que, além disso, contém informações sobre seu
+contexto - ou *enclosure*, portanto também chamado de **closure**
+em outras linguagens. Por exemplo, um `delegate`
+que aponta para uma função membro de uma classe também inclui
+o ponteiro para o objeto da classe. Um `delegate` criado por
+uma função aninhada inclui um link para o contexto
+em vez disso. No entanto, o compilador D pode fazer automaticamente uma cópia do
+do contexto no heap se isso for necessário para a segurança da memória.
+então um delegate será vinculado a essa área de heap.
 
     void foo() {
         void local() {
             writeln("local");
         }
-        auto f = &local; // f is of type delegate()
+        auto f = &local; // f é do tipo delegate()
     }
 
-The same function `doSomething` taking a `delegate`
-would look like this:
+A mesma função `doSomething` que recebe um `delegate`
+teria a seguinte aparência:
 
     void doSomething(int delegate(int,int) doer);
 
@@ -47,34 +47,34 @@ standard function
 [`std.functional.toDelegate`](https://dlang.org/phobos/std_functional.html#.toDelegate)
 converts a `function` to a `delegate`.
 
-### Anonymous functions & Lambdas
+### Funções anônimas & Lambdas
 
-As functions can be saved as variables and passed to other functions,
-it is laborious to give them an own name and to define them. Hence D allows
-nameless functions and one-line _lambdas_.
+Como as funções podem ser salvas como variáveis e passadas para outras funções,
+é trabalhoso dar a elas seu próprio nome e defini-las. Por isso, o D permite
+funções sem nome e _lambdas_ de uma linha.
 
     auto f = (int lhs, int rhs) {
         return lhs + rhs;
     };
-    auto f = (int lhs, int rhs) => lhs + rhs; // Lambda - internally converted to the above
+    auto f = (int lhs, int rhs) => lhs + rhs; // Lambda - convertido internamente para o valor acima
 
-It is also possible to pass-in strings as template argument to functional parts
-of D's standard library. For example they offer a convenient way
-to define a folding (aka reducer):
+Também é possível passar strings como argumentos de template para partes funcionais
+da biblioteca padrão do D. Por exemplo, elas oferecem uma maneira conveniente
+de definir um *folding* (também conhecido como *reducer*):
 
     [1, 2, 3].reduce!`a + b`; // 6
 
-String functions are only possible for _one or two_ arguments and then use `a`
-as first and `b` as second argument.
+As funções de strings só são possíveis para _um ou dois_ argumentos e usam `a`
+como o primeiro e `b` como o segundo argumento.
 
-### In-depth
+### Maiores detalhes
 
 - [Delegate specification](https://dlang.org/spec/function.html#closures)
 
 ## {SourceCode}
 
 ```d
-import std.stdio;
+import std.stdio : writeln;
 
 enum IntOps {
     add = 0,
