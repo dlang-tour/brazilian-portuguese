@@ -1,64 +1,62 @@
 # Thread local storage
 
-The storage class `static` allows declaring objects
-which are initialized only once. If the same
-line is executed a second time, the initialization
-will be omitted.
-Every thread will get its own
-`static` object (*TLS - thread local storage*)
-and won't be able to read or modify another thread's
-`static` object - although the variable name
-stays the same. Thus `static` allows declaring an
-object that holds state that is
-is global for the *current* thread.
+A classe de armazenamento `static` permite declarar objetos
+que são inicializados apenas uma vez. Se a mesma linha
+for executada uma segunda vez, a inicialização
+será omitida.
+Cada thread terá seu próprio objeto `static` (*TLS - thread local storage*)
+e não poderá ler ou modificar o objeto `static` de outra thread,
+embora o nome da variável
+permaneça o mesmo. Assim, o `static` permite declarar um objeto
+que mantém o estado que é global para a thread *atual*.
 
-This is different to
-e.g. C/C++ and Java where `static` indeed means global
-for the application, entailing synchronization issues
-in multi-threaded applications.
+Isso é diferente de
+C, C++ e Java, por exemplo, onde `static` de fato significa global
+para o aplicativo, o que acarreta problemas de sincronização
+em aplicativos com múltiplas threads.
 
-The value assigned to a `static` variable must
-be evaluable at compile-time. It mustn't have
-runtime dependencies! It's possible to initialize
-`static` variables at runtime using a `static this()`
-one-time constructor for structs, classes, and modules.
+O valor atribuído a uma variável `static` deve
+ser avaliável em tempo de compilação. Ele não deve ter
+dependências de tempo de execução! É possível inicializar
+variáveis `static` em tempo de execução usando um construtor
+único `static this()` para structs, classes e módulos.
 
     static int b = 42;
-    // b is just intialized once!
-    // When run from different threads
-    // each b will have see its
-    // "own" b without interference from
-    // other threds.
+    // b é inicializado apenas uma vez!
+    // Quando executado em diferentes threads
+    // cada thread terá sua
+    // "própria" variavel b sem interferência de
+    // outras threads.
 
-Moreover for declaration of a "classic" global variable that
-every thread can see and modify,
-use the storage class `__gshared` which is equivalent
-to C's `static`.
-Its ugly name is a friendly reminder to use it rarely.
+Além disso, para a declaração de uma variável global "clássica" que
+cada thread pode ver e modificar,
+use a classe de armazenamento `__gshared`, que é equivalente
+ao `static` do C.
+Seu nome feio é um lembrete amigável para usá-la raramente.
 
     __gshared int b = 50;
-    // Also intialized just once!
-    // A truly global b which every thread
-    // can read - and making it dangerous -
-    // modify!
+    // Também inicializado apenas uma vez!
+    // Um b verdadeiramente global que toda thread
+    // pode ler - e que o torna perigoso -
+    // modificar!
 
-### In-depth
+### Maiores detalhes
 
 - [Thread-local storage on Wikipedia](https://en.wikipedia.org/wiki/Thread-local_storage)
 
 ## {SourceCode}
 
 ```d
-import std.concurrency;
+import std.concurrency : spawn, thisTid;
 
 void worker(bool firstTime)
 {
-    import std.stdio: writeln;
-    // theStatic is global to the current
-    // thread only. No other thread will be
-    // able to access it. Note that it
-    // is initialized only the first time
-    // the line is executed.
+    import std.stdio : writeln;
+    // threadState é global para
+    // thread atual. Nenhuma outra thread
+    // poderá acessá-la. Observe que
+    // é inicializado apenas na
+    // primeira vez que a linha é executada.
     static int threadState = 0;
     writeln("Thread ", thisTid,
         ": My state = ", threadState++);
@@ -68,8 +66,8 @@ void worker(bool firstTime)
 
 void main()
 {
-    // Create 5 threads that call
-    // worker(true,i) each.
+    // Cria 5 threads nesta chamada
+    // havendo um worker(true,i) cada.
     for (size_t i = 0; i < 5; ++i) {
         spawn(&worker, true);
     }

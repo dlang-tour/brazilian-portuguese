@@ -1,65 +1,69 @@
-# Synchronization & Sharing
+# Sincronização & Compartilhamento
 
-Although the preferred way in D to do multi-threading
-is to rely on `immutable` data and synchronize threads
-using message passing, the language has built-in
-support for *synchronization* primitives as well as
-type system support with `shared` to mark objects
-that are accessed from multiple threads.
+Em D, a maneira preferida de fazer multi-threading
+é confiar em dados `immutable` e sincronizar as threads
+usando a troca de mensagens. No entanto, a linguagem
+tem suporte a primitivas de *sincronização*, bem como
+suporte ao sistema de tipos com `shared` para marcar objetos
+que são acessados de várias threads.
 
-The `shared` type identifier allows to mark variables
-that are shared among different threads:
+Use o identificador de tipo `shared` para marcar variáveis
+que são compartilhadas entre diferentes threads:
 
     shared(int)* p = new int;
-    int* t = p; // ERROR
+    int* t = p; // ERRO
 
-For example `std.concurrency.send` just allows to send either
-`immutable` or `shared` data and copying the message
-to be sent. `shared` is transitive so if a `class` or `struct`
-is marked `shared` all its members will be too.
-Note that `static` variables aren't `shared` by
-default because they are implemented using
-*thread local storage* (TLS) and each thread gets
-its own variable.
+Por exemplo, o `std.concurrency.send` só permite o envio de
+dados `immutable` ou `shared` e copiar a mensagem
+a ser enviada. O `shared` é transitivo, portanto, se uma `class` ou `struct`
+for marcado como `shared`, todos os seus membros também serão.
+Observe que as variáveis `static` não são `shared` por
+padrão porque são implementadas usando
+*thread local storage* (TLS) e cada thread recebe
+sua própria variável.
 
-`synchronized` blocks allow to instruct the compiler
-to create  a critical section that can only be entered
-by one thread at a time.
+Os blocos `synchronized` são usados para informar ao compilador
+para criar uma seção crítica que só pode ser acessada
+por uma thread de cada vez. Sem argumentos, um mutex exclusivo
+para essa instrução será bloqueado e desbloqueado.
 
     synchronized {
         importStuff();
     }
 
-Within `class` member functions these blocks might be
-limited to different member objects *mutexes*
-with `synchronized(member1, member2)` to reduce
-contention. The D compiler inserts *critical
-sections* automatically. A whole class can be marked
-as `synchronized` as well and the compiler will
-make sure that just one thread accesses a concrete
-instance of it at a time.
+A sincronização pode ser limitada somente a um objeto da classe
+*mutex*, passando o objeto como um argumento usando
+`synchronized (obj)` para reduzir a contenção.
 
-Atomic operations on `shared` variables can be
-performed using the `core.atomic.atomicOp`
-helper:
+O compilador D insere *seções críticas* automaticamente.
+Uma classe inteira pode ser marcada
+como `synchronized` e, nesse caso, o compilador
+garante que apenas uma thread acesse uma instância
+concreta de cada vez.
+
+As operações atômicas em variáveis `shared` podem ser
+executadas usando o operador auxiliar `core.atomic.atomicOp`:
 
     shared int test = 5;
     test.atomicOp!"+="(4);
 
-### In-depth
+### Maiores detalhes
 
 - [Data Sharing Concurrency in _Programming in D_](http://ddili.org/ders/d.en/concurrency_shared.html)
 - [`shared` type qualifier](http://www.informit.com/articles/article.aspx?p=1609144&seqNum=11)
 - [Lock-Based Synchronization with `synchronized`](http://www.informit.com/articles/article.aspx?p=1609144&seqNum=13)
 - [Deadlocks and `synchronized`](http://www.informit.com/articles/article.aspx?p=1609144&seqNum=15)
 - [`synchronized` specification](https://dlang.org/spec/statement.html#SynchronizedStatement)
-- [Implicit conversions with `shared` data types](https://dlang.org/spec/const3.html#implicit_conversions)
+- [`synchronized` classes](https://dlang.org/spec/class.html#synchronized-classes)
+- [`shared` type qualifier](https://dlang.org/spec/const3.html#shared)
+- [Implicit conversions with `shared` data types](https://dlang.org/spec/const3.html#implicit_qualifier_conversions)
 
 ## {SourceCode}
 
 ```d
-import std.concurrency;
-import core.atomic;
+import std.concurrency : receiveOnly, send,
+    spawn, Tid, thisTid;
+import core.atomic : atomicOp, atomicLoad;
 
 /*
 Queue that can be used safely among
@@ -79,7 +83,7 @@ synchronized class SafeQueue(T)
 
     /// Return T.init if queue empty
     T pop() {
-        import std.array: empty;
+        import std.array : empty;
         T value;
         if (elements.empty)
             return value;
@@ -100,7 +104,7 @@ void safePrint(T...)(T args)
 {
     // Just executed by one concurrently
     synchronized {
-        import std.stdio: writeln;
+        import std.stdio : writeln;
         writeln(args);
     }
 }
@@ -108,9 +112,9 @@ void safePrint(T...)(T args)
 void threadProducer(shared(SafeQueue!int) queue,
     shared(int)* queueCounter)
 {
-    import std.range: iota;
-    // Push values 1 to 11
-    foreach (i; iota(1,11)) {
+    import std.range : iota;
+    // Push values 1 to 10
+    foreach (i; 1..11) {
         queue.push(i);
         safePrint("Pushed ", i);
         atomicOp!"+="(*queueCounter, 1);
