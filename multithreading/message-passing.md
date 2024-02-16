@@ -1,24 +1,24 @@
-# Message Passing
+# Troca de Mensagens
 
-Instead of dealing with threads and doing synchronization
-yourself D allows to use *message passing* as a means
-to leverage the power of multiple cores. Threads communicate
-with *messages* - which are arbitrary values - to distribute
-work and synchronize themselves. They don't share data
-by design which avoids the common problems of
+Em vez de lidar com threads e fazer a sincronização
+você mesmo, o D permite usar a *troca de mensagens* como um meio
+para aproveitar a potência de vários núcleos. As threads se comunicam
+com *mensagens*, que são valores arbitrários, para distribuir
+trabalho e sincronizar-se. Eles não compartilham dados
+por padrão, o que evita os problemas comuns de
 multi-threading.
 
-All functions that implement message passing in D
-can be found in the [`std.concurrency`](https://dlang.org/phobos/std_concurrency.html)
-module. `spawn` creates a new *thread* based on a
-user-defined function:
+Todas as funções que implementam a troca de mensagens em D
+podem ser encontradas no módulo [`std.concurrency`](https://dlang.org/phobos/std_concurrency.html)
+módulo. O `spawn` cria uma nova *thread* com base em uma
+função definida pelo usuário:
 
     auto threadId = spawn(&foo, thisTid);
 
-`thisTid` is a `std.concurrency` built-in and references
-the current thread which is needed for message passing. `spawn`
-takes a function as first parameter and
-additional parameters to that function as arguments.
+`thisTid` faz parte do `std.concurrency` e faz referência a
+thread atual, que é necessário para a troca de mensagens. `spawn`
+recebe uma função como primeiro parâmetro e
+parâmetros adicionais para essa função como argumentos.
 
     void foo(Tid parentTid) {
         receive(
@@ -28,27 +28,26 @@ additional parameters to that function as arguments.
         send(parentTid, "Done");
     }
 
-The `receive` function is like a `switch`-`case`
-and dispatches the values it receives from other threads
-to the passed `delegates` - depending on the received
-value's type.
+A função `receive` é como um `switch`-`case`
+e despacha os valores que recebe de outras threads
+para os `delegates` enviados, dependendo do tipo de valor recebido.
 
-To send a message to a specific thread use the function `send`
-and its id:
+Para enviar uma mensagem a uma thread específico, use a função `send`
+e seu identificador:
 
     send(threadId, 42);
 
-`receiveOnly` can be used to just receive a specified
-type:
+O `receiveOnly` pode ser usado para receber apenas um
+tipo especificado:
 
     string text = receiveOnly!string();
     assert(text == "Done");
 
-The `receive` family functions block until something
-has been sent to the thread's mailbox.
+As funções da família `receive` bloqueiam até que algo
+tenha sido enviado para a caixa de correio da thread.
 
 
-### In-depth
+### Maiores detalhes
 
 - [Exchanging Messages between Threads](http://www.informit.com/articles/article.aspx?p=1609144&seqNum=5)
 - [Messaging passing concurrency](http://ddili.org/ders/d.en/concurrency.html)

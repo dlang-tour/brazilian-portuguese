@@ -1,18 +1,17 @@
-# Fibers
+# Fibras
 
-**Fibers** are a way to implemented concurrency
-in a *cooperative* fashion. The class `Fiber`
-is defined in the module [`core.thread`](https://dlang.org/phobos/core_thread.html).
+**Fibras** são uma forma de implementar a concorrência
+de forma *cooperativa*. A classe `Fiber`
+é definida no módulo [`core.thread`](https://dlang.org/phobos/core_thread.html).
 
-The basic idea is that when a fiber
-has nothing to do or waits for more input, it
-*actively* gives away its possibility to
-execute instructions by calling `Fiber.yield()`.
-The parent context gains now power again but the
-fiber's state - all variables on the stack - are
-saved. The fiber can then be resumed
-and will continue at the instruction right *after*
-it called `Fiber.yield()`. Magic? Yes.
+A ideia básica é que, quando uma fibra
+não tem nada para fazer ou espera por mais entrada, ela
+*ativamente* abre mão de sua possibilidade de
+executar instruções chamando `Fiber.yield()`.
+O contexto principal ganha controle novamente,
+mas o estado da fibra - todas as variáveis na pilha - são
+salvas. A fibra pode então ser retomada
+e continuará na instrução logo *depois* de chamar `Fiber.yield()`.
 
     void foo() {
         writeln("Hello");
@@ -21,22 +20,21 @@ it called `Fiber.yield()`. Magic? Yes.
     }
     // ...
     auto f = new Fiber(&foo);
-    f.call(); // Prints Hello
-    f.call(); // Prints World
+    f.call(); // Imprime Hello
+    f.call(); // Imprime World
 
-This feature can be used to implement concurrency
-where multiple fibers cooperatively share a single
-core. The advantage of fibers compared to threads is
-that there resource usage is lower because
-no context switching is involved.
+Esse recurso pode ser usado para implementar a concorrência
+em que várias fibras compartilham cooperativamente um único
+núcleo. A vantagem das fibras em relação as threads
+é que seu uso de recursos é menor porque
+não há troca de contexto envolvida.
 
-A very good usage of this technique can be seen in
-the [vibe.d framework](http://vibed.org) which implements
-non-blocking (or asynchronous) I/O operations
-in terms of fibers leading to a much cleaner
-code.
+Um uso muito bom dessa técnica pode ser visto em
+[vibe.d](http://vibed.org), que implementa
+operações de E/S não bloqueantes (ou assíncronas)
+em termos de fibras, o que resulta em um código muito mais limpo.
 
-### In-depth
+### Maiores detalhes
 
 - [Fibers in _Programming in D_](http://ddili.org/ders/d.en/fibers.html)
 - [Documentation of core.thread.Fiber](https://dlang.org/library/core/thread/fiber.html)
@@ -44,15 +42,15 @@ code.
 ## {SourceCode}
 
 ```d
-import core.thread: Fiber;
-import std.stdio: write;
-import std.range: iota;
+import core.thread : Fiber;
+import std.stdio : write;
+import std.range : iota;
 
 /**
-Iterates over `range` and applies
-the function `Fnc` to each element x
-and returns it in `result`. Fiber yields
-after each application.
+Itera sobre o `range` e aplica
+a função `Fnc` a cada elemento x
+e o retorna em `result`. A fibra libera
+após cada aplicação.
 */
 void fiberedRange(alias Fnc, R, T)(
     R range,
@@ -67,21 +65,21 @@ void fiberedRange(alias Fnc, R, T)(
 void main()
 {
     int squareResult, cubeResult;
-    // Create a fiber that is initialized
-    // with a delegate that generates a square
-    // range.
+    // Cria uma fibra que é inicializada
+    // com um delegate que gera uma raíz
+    // quadrada com range.
     auto squareFiber = new Fiber({
         fiberedRange!(x => x*x)(
             iota(1,11), squareResult);
     });
-    // .. and here is which creates cubes!
+    // .. e aqui criará raíz cúbica!
     auto cubeFiber = new Fiber({
         fiberedRange!(x => x*x*x)(
             iota(1,9), cubeResult);
     });
 
-    // if state is TERM the fiber has finished
-    // executing its associated function.
+    // Se o estado for TERM, a fibra finaliza
+    // executando sua função associada.
     squareFiber.call();
     cubeFiber.call();
     while (squareFiber.state
@@ -94,7 +92,7 @@ void main()
         write("\n");
     }
 
-    // squareFiber could still be run because
-    // it has finished yet!
+    // squareFiber ainda pode ser executado
+    // porque ele ainda não terminou!
 }
 ```
