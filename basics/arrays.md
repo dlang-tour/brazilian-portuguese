@@ -40,11 +40,11 @@ usando a sintaxe `auto arr = new int[3][3]`.
 Os arrays estáticos e dinâmicos fornecem a propriedade `.length`,
 que é somente leitura para arrays estáticos, mas pode ser usada no caso de
 matrizes dinâmicas para alterar seu tamanho dinamicamente. A propriedade
-propriedade `.dup` cria uma cópia do array.
+`.dup` cria uma cópia do array.
 
 A indexação de um array refere-se a um elemento desse array.
 Ao indexar um array por meio da sintaxe `arr[idx]`, um símbolo especial
-especial `$` indica o comprimento de um array. Por exemplo, `arr[$ - 1]` faz referência
+`$` indica o comprimento de um array. Por exemplo, `arr[$ - 1]` faz referência
 o último elemento e é uma forma abreviada de `arr[arr.length - 1]`.
 
 Os arrays podem ser concatenados usando o operador `~`, que

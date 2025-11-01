@@ -54,7 +54,7 @@ Se uma função membro for declarada com `const`, não será permitido
 modificar nenhum de seus membros. Isso é imposto pelo compilador.
 Tornar uma função membro `const` faz com que ela possa ser chamada em qualquer objeto `const`
 ou objeto `immutable`, mas também garante aos chamadores que
-a função de membro nunca alterará o estado do objeto.
+a função membro nunca alterará o estado do objeto.
 
 ### Função membro `static`
 
@@ -63,8 +63,7 @@ sem um objeto instanciado (por exemplo, `Person.myStatic()`), mas ela
 não poderá acessar nenhum membro que não seja `static`.  Ele pode ser usado se um método
 não precisar acessar nenhum dos campos de membro do objeto, mas logicamente
 pertence à mesma classe. Também pode ser usado para fornecer alguma funcionalidade
-sem criar uma instância explícita, por exemplo, algumas implementações do padrão de design Singleton
-usam `static`.
+sem criar uma instância explícita, por exemplo, algumas implementações do padrão de design Singleton usam `static`.
 
 ### Herança
 

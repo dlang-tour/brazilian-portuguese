@@ -9,8 +9,7 @@ por padrão, o que evita os problemas comuns de
 multi-threading.
 
 Todas as funções que implementam a troca de mensagens em D
-podem ser encontradas no módulo [`std.concurrency`](https://dlang.org/phobos/std_concurrency.html)
-módulo. O `spawn` cria uma nova *thread* com base em uma
+podem ser encontradas no módulo [`std.concurrency`](https://dlang.org/phobos/std_concurrency.html). O `spawn` cria uma nova *thread* com base em uma
 função definida pelo usuário:
 
     auto threadId = spawn(&foo, thisTid);

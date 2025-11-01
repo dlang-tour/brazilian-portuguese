@@ -25,9 +25,9 @@ contexto - ou *enclosure*, portanto também chamado de **closure**
 em outras linguagens. Por exemplo, um `delegate`
 que aponta para uma função membro de uma classe também inclui
 o ponteiro para o objeto da classe. Um `delegate` criado por
-uma função aninhada inclui um link para o contexto
+uma função aninhada inclui um vínculo para o contexto
 em vez disso. No entanto, o compilador D pode fazer automaticamente uma cópia do
-do contexto no heap se isso for necessário para a segurança da memória.
+contexto no heap se isso for necessário para a segurança da memória.
 então um delegate será vinculado a essa área de heap.
 
     void foo() {
@@ -42,10 +42,9 @@ teria a seguinte aparência:
 
     void doSomething(int delegate(int,int) doer);
 
-`delegate` and `function` objects cannot be mixed. But the
-standard function
+Os objetos de `delegate` e `function` não podem ser misturados. Porém, é possível a função
 [`std.functional.toDelegate`](https://dlang.org/phobos/std_functional.html#.toDelegate)
-converts a `function` to a `delegate`.
+converter `function` em `delegate`.
 
 ### Funções anônimas & Lambdas
 

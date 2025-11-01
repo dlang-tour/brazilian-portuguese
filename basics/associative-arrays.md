@@ -1,8 +1,8 @@
 # Arrays Associativos
 
-O D tem *arrays associativos* incorporados, também conhecidos como mapas de hash.
-Um array associativo com um tipo de chave `string` e um tipo de valor
-de `int` é declarado da seguinte forma:
+O D tem *arrays associativos* incorporados, também conhecidos como [HashMap](https://en.wikipedia.org/wiki/Hash_table).
+Um array associativo com um tipo `string` na chave e um tipo `int` no valor
+é declarado da seguinte forma:
 
     int[string] arr;
 

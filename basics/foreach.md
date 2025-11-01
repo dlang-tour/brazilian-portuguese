@@ -29,8 +29,8 @@ chamado **range**, que será apresentado na [próxima seção](basics/ranges).
 
 Os elementos serão copiados do array ou range durante a iteração.
 Isso é aceitável para tipos básicos, mas pode ser um problema para tipos
-tipos grandes. Para evitar a cópia e permitir a mutabilidade do dado
-pode ser usado o `ref`:
+grandes. Para evitar a cópia e permitir a mutabilidade do dado
+utilizando `ref`:
 
     foreach (ref e; arr) {
         e = 10; // sobrescrevendo o valor
@@ -46,7 +46,7 @@ D nos permite escrever iterações que devem ser executadas
     }
     // 0 1 2
 
-O último número em `a ... b` é excluído do intervalo,
+O último número em `a ... b` é excluído do range,
 portanto, o corpo do loop é executado `3` vezes.
 
 ### Iteração com contador de índice

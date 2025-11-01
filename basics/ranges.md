@@ -81,7 +81,7 @@ interface ForwardRange(E) : InputRange!E
 ```
 
 ```d
-// by value (Structs)
+// por valor (Structs)
 auto r = 5.iota;
 auto r2 = refRange(&r);
 r2.save.drop(5).writeln; // []

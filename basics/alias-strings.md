@@ -37,7 +37,7 @@ e não em um nível de caractere.
 Ao mesmo tempo, os algoritmos da biblioteca padrão interpretarão `string`s como sequências
 de [pontos de código](http://unicode.org/glossary/#code_point), e há também uma
 opção para tratá-las como sequências de
-[graphemes] (http://unicode.org/glossary/#grapheme) por meio do uso explícito de
+[graphemes](http://unicode.org/glossary/#grapheme) por meio do uso explícito de
 [`std.uni.byGrapheme`](https://dlang.org/library/std/uni/by_grapheme.html).
 
 Este pequeno exemplo ilustra essa diferença de interpretação:
@@ -59,10 +59,9 @@ Aqui, o tamanho atual do array `s` é 3, porque ele contém 3 unidades de códig
 (função da biblioteca padrão para calcular o comprimento de um range arbitrário)
 conta dois pontos de código no total. Por fim, `byGrapheme` realiza cálculos bastante caros
 para reconhecer que esses dois pontos de código se combinam em um único caractere exibido.
-caractere.
 
 O processamento correto do Unicode pode ser muito complicado, mas, na maioria das vezes, os desenvolvedores de D
-podem simplesmente considerar as variáveis `string` como arrays mágicas de bytes e
+podem simplesmente considerar as variáveis `string` como arrays mágicos de bytes e
 e confiar nos algoritmos da biblioteca padrão para fazer o trabalho correto.
 Se a iteração por elemento (unidade de código) for desejada, é possível usar
 [`byCodeUnit`](http://dlang.org/phobos/std_utf.html#.byCodeUnit).

@@ -5,7 +5,7 @@ O D oferece suporte a classes e interfaces como em Java ou C++.
 Qualquer tipo de `class` herda implicitamente do [`Object`](https://dlang.org/phobos/object.html) (objeto).
 
     class Foo { } // herda de Object
-    class Bar : Foo { } // Bar é imcorporado ao Foo
+    class Bar : Foo { } // Bar é incorporado ao Foo
 
 As classes em D geralmente são instanciadas no heap usando `new`:
 
@@ -22,8 +22,8 @@ quando não houver mais referências a um objeto.
 #### Herança
 
 Se uma função de membro de uma classe base for substituída, a palavra-chave
-`override` deve ser usada para indicar isso. Isso evita a substituição não intencional
-sobreposição não intencional de funções.
+`override` deve ser usada para indicar isso. Isso evita a sobreposição não 
+intencional de funções.
 
     class Bar : Foo {
         override functionFromFoo() {}

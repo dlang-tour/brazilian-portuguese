@@ -21,7 +21,7 @@ Nos próximos capítulos, você verá que isso se aplica a quase todos os concei
 
 ### Imports seletivos
 
-A biblioteca pad~rao, chamado [Phobos](https://dlang.org/phobos/),
+A biblioteca padrão, chamado [Phobos](https://dlang.org/phobos/),
 está localizado no **pacote** `std`
 e seus módulos são referenciados por meio do `import std.MODULE`.
 

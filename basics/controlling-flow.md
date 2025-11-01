@@ -3,11 +3,11 @@
 O fluxo de um aplicativo pode ser controlado condicionalmente com declarações `if` e `else`:
 
     if (a == 5) {
-        writeln("Condition is met");
+        writeln("Condição atendida!");
     } else if (a > 10) {
-        writeln("Another condition is met");
+        writeln("Outra condição atendida!");
     } else {
-        writeln("Nothing is met!");
+        writeln("Nenhuma condição atendida!");
     }
 
 Quando um bloco `if` ou `else` contém apenas uma instrução,

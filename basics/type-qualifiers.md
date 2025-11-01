@@ -20,9 +20,7 @@ depois disso, não pode ser alterado.
     // ou: immutable err = 5 e int será inferido.
     err = 5; // não compila
 
-Os objetos `imutáveis` podem, portanto, ser compartilhados com segurança entre diferentes threads sem
-sincronização, pois, por definição, eles nunca mudam. Isso também implica que os objetos
-os objetos `immutable` podem ser armazenados em cache perfeitamente.
+Os objetos `imutáveis` podem, portanto, ser compartilhados com segurança entre diferentes threads sem sincronização, pois, por definição, eles nunca mudam. Isso também implica que os objetos `immutable` podem ser armazenados em cache perfeitamente.
 
 ### `const`
 

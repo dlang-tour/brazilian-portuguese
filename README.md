@@ -1,4 +1,4 @@
-Versão em português do Brasil da DLang Tour
+Versão em português do Brasil de DLang Tour
 ===========================================
 
 [![sanitycheck build status](https://github.com/dlang-tour/brazilian-portuguese/actions/workflows/d.yml/badge.svg)](https://github.com/dlang-tour/brazilian-portuguese/actions/workflows/d.yml)

@@ -80,7 +80,7 @@ automaticamente.
 É importante evitar o `assert` e o que será introduzido em breve
 [contract programming](gems/contract-programming)
 para a entrada do usuário, pois o `assert` e os contratos
-são removidos quando compilados no modo de lançamento. Por conveniência
+são removidos quando compilados no modo de lançamento (release). Por conveniência
 [`std.exception`](https://dlang.org/phobos/std_exception.html) fornece
 [`enforce`](https://dlang.org/phobos/std_exception.html#enforce)
 que pode ser usado como o `assert`, mas lança `Exception`s

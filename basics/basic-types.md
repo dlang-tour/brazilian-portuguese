@@ -2,10 +2,9 @@
 
 O D fornece vários tipos básicos que sempre têm o mesmo
 tamanho **independentemente** da plataforma - a única exceção
-é o tipo `real` que fornece a maior precisão possível de ponto flutuante
-possível. Não há diferença
-entre o tamanho de um número inteiro, independentemente de o aplicativo
-seja compilado para sistemas de 32 ou 64 bits.
+é o tipo `real` que fornece a maior precisão possível de ponto flutuante.
+Não há diferença entre o tamanho de um número inteiro, independentemente
+do aplicativo ser compilado para sistemas de 32 ou 64 bits.
 
 | tipo                          | tamanho
 |-------------------------------|------------
@@ -60,8 +59,8 @@ Cada tipo também tem uma propriedade `.stringof` que produz seu nome como uma s
 ### Índices em D
 
 Em D, os índices geralmente têm o alias do tipo `size_t`, pois é um tipo que
-é grande o suficiente para representar um deslocamento em toda a memória endereçável - isto é
-`uint` para arquiteturas de 32 bits e `ulong` para arquiteturas de 64 bits.
+é grande o suficiente para representar um deslocamento em toda a memória endereçável, 
+isto é, `uint` para arquiteturas de 32 bits e `ulong` para arquiteturas de 64 bits.
 
 ### Expressão Assert
 

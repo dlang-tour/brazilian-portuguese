@@ -2,7 +2,7 @@
 
 D é uma linguagem de programação de sistema e, portanto, permite o gerenciamento manual da memória.
 Entretanto, o gerenciamento manual de memória está sujeito a erros de segurança de memória
-e, portanto, o D usa um *coletor de lixo* por padrão para gerenciar a alocação de memória.
+e por conta disto, o D usa um *coletor de lixo* (GC) por padrão para gerenciar a alocação de memória.
 
 D fornece tipos de ponteiro `T*` como em C:
 
@@ -11,12 +11,12 @@ D fornece tipos de ponteiro `T*` como em C:
     auto c = &a; // c é int* e contém o endereço de a
 
 Um novo bloco de memória no heap é alocado usando uma expressão
-expressão [`new T`](https://dlang.org/spec/expression.html#new_expressions),
+[`new T`](https://dlang.org/spec/expression.html#new_expressions),
 que retorna um ponteiro para a memória gerenciada (quando T é um tipo de valor):
 
     int* a = new int;
 
-Quando a memória referenciada por `a` não for referenciada em nenhum lugar
+Quando a memória referenciada por `a` não for utilizada em nenhum lugar
 por meio de qualquer variável no programa, o próximo ciclo de coleta de lixo
 liberará sua memória. Por padrão, o coletor de lixo só pode ser
 executado ao alocar memória com o GC - por exemplo, ao utilizar

@@ -1,4 +1,4 @@
-# std.parallelism
+# Paralelismo
 
 O módulo `std.parallelism` implementa
 primitivas de alto nível para uma programação simultânea conveniente.
