@@ -67,7 +67,7 @@ void worker(bool firstTime)
 void main()
 {
     // Cria 5 threads nesta chamada
-    // havendo um worker(true,i) cada.
+    // havendo um worker(true) cada.
     for (size_t i = 0; i < 5; ++i) {
         spawn(&worker, true);
     }
